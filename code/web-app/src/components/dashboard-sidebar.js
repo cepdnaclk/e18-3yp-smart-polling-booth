@@ -33,14 +33,14 @@ const items = [
   //   title: "Products",
   // },
   {
-    href: "/account",
-    icon: <UserIcon fontSize="small" />,
-    title: "Account",
-  },
-  {
     href: "/settings",
     icon: <CogIcon fontSize="small" />,
     title: "Settings",
+  },
+  {
+    href: "/account",
+    icon: <UserIcon fontSize="small" />,
+    title: "Account",
   },
   // {
   //   href: "/login",
