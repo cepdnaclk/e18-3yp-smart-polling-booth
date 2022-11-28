@@ -22,8 +22,6 @@ title: Smart Polling Booth
 
 <!-- This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/) -->
 
-[Sample Image](./images/sample.png)
-
 #### Table of Contents
 1. [Introduction](#introduction)
 2. [Solution Architecture](#solution-architecture )
@@ -34,6 +32,8 @@ title: Smart Polling Booth
 7. [Links](#links)
 
 ## Introduction
+
+### Project Video
 
 https://user-images.githubusercontent.com/73760543/204222648-f0345018-dda2-4d9e-b89a-dd5fc52840d4.mp4
 
