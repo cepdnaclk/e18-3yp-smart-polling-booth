@@ -56,9 +56,9 @@ title: Smart Polling Booth
 
 ## Hardware and Software Designs
 
-### Hardware Design
+<!--### Hardware Design-->
 
-<img src="./images/highlevel_system_architecture.png" />&emsp;
+<!--<img src="./images/highlevel_system_architecture.png" />&emsp; -->
 
 ### UI Design
 
@@ -80,10 +80,7 @@ Testing done on hardware and software, detailed + summarized results -->
 All items and costs
 
 <img src="./images/budget.png" />&emsp;
-<!-- ## Conclusion
-
-What was achieved, future developments, commercialization plans
- -->
+<!-- ## Conclusion What was achieved, future developments, commercialization plans-->
 ## Links
 
 - [Project Repository](https://github.com/cepdnaclk/{{ page.repository-name }}){:target="_blank"}
