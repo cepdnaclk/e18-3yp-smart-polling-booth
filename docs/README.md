@@ -57,7 +57,7 @@ https://user-images.githubusercontent.com/73760543/204222648-f0345018-dda2-4d9e-
 
 ## Technology Stack
 
-<img src="./images/solution_architecturehighlevel_system_architecture.png" />&emsp;
+<img src="./images/solution_architecture.png" />&emsp;
 
 ## Hardware and Software Designs
 
