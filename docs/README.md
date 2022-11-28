@@ -35,6 +35,7 @@ title: Smart Polling Booth
 
 ## Introduction
 
+https://user-images.githubusercontent.com/73760543/204222648-f0345018-dda2-4d9e-b89a-dd5fc52840d4.mp4
 
 ### Difficulties Around Current Voting Process
 - Difficult  to eliminate Invalid votes 
