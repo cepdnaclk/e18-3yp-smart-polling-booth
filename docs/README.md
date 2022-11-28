@@ -22,7 +22,7 @@ title: Smart Polling Booth
 
 <!-- This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/) -->
 
-<!-- ![Sample Image](./images/sample.png) -->
+[Sample Image](./images/sample.png)
 
 #### Table of Contents
 1. [Introduction](#introduction)
@@ -35,33 +35,55 @@ title: Smart Polling Booth
 
 ## Introduction
 
-Description of the real world problem and solution, impact
+
+### Difficulties Around Current Voting Process
+- Difficult  to eliminate Invalid votes 
+- Not having proper ways to identify and verify  the voters to avoid cheating 
+- No Efficient way to get time-to-time analysing process
+- Manual voting systems need high cost for labourers, papers
+
+## Suggested solution is a SMART POLLING BOOTH with
+- Use both fingerprints and face recognition to verify the identity of the voters.
+- Facilitating to monitor the voting process time-to-time.
+- Facilitating to analyze the votings.
+- Reducing the cost going for papers, labourers.
+
 
 
 ## Solution Architecture
 
-High level diagram + description
+<img src="./images/solution_architecture.png" />&emsp;
 
 ## Hardware and Software Designs
 
-Detailed designs with many sub-sections
+### Hardware Design
 
-## Testing
+<img src="./images/highlevel_system_architecture.png" />&emsp;
 
-Testing done on hardware and software, detailed + summarized results
+### UI Design
+
+#### Dashboard
+<img src="./images/dashboard.png" />&emsp;
+
+#### Settings
+<img src="./images/settings.png" />&emsp;
+
+#### Account
+<img src="./images/account.png" />&emsp;
+
+<!-- ## Testing
+
+Testing done on hardware and software, detailed + summarized results -->
 
 ## Detailed budget
 
 All items and costs
 
-| Item          | Quantity  | Unit Cost  | Total  |
-| ------------- |:---------:|:----------:|-------:|
-| Sample item   | 5         | 10 LKR     | 50 LKR |
-
-## Conclusion
+<img src="./images/budget.png" />&emsp;
+<!-- ## Conclusion
 
 What was achieved, future developments, commercialization plans
-
+ -->
 ## Links
 
 - [Project Repository](https://github.com/cepdnaclk/{{ page.repository-name }}){:target="_blank"}
