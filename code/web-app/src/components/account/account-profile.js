@@ -19,7 +19,7 @@ const user = {
 };
 
 export const AccountProfile = (props) => (
-  <Card {...props}>
+  <Card sx={{ backgroundColor: "#111827" }} {...props}>
     <CardContent>
       <Box
         sx={{
@@ -49,7 +49,7 @@ export const AccountProfile = (props) => (
     </CardContent>
     <Divider />
     <CardActions>
-      <Button color="primary" fullWidth variant="text">
+      <Button color="secondary" fullWidth variant="text">
         Upload picture
       </Button>
     </CardActions>
