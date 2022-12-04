@@ -1,14 +1,14 @@
 import Head from "next/head";
 import { Box, Container } from "@mui/material";
 import { CustomerListResults } from "../components/customer/customer-list-results";
-import { CustomerListToolbar } from "../components/customer/customer-list-toolbar";
+import { CandidateListToolbar } from "../components/customer/customer-list-toolbar";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { customers } from "../__mocks__/customers";
+import { candidates } from "../__mocks__/candidates";
 
 const Page = () => (
   <>
     <Head>
-      <title>Customers | Material Kit</title>
+      <title>candidates | Smart Polling</title>
     </Head>
     <Box
       component="main"
@@ -18,9 +18,9 @@ const Page = () => (
       }}
     >
       <Container maxWidth={false}>
-        <CustomerListToolbar />
+        <CandidateListToolbar />
         <Box sx={{ mt: 3 }}>
-          <CustomerListResults customers={customers} />
+          <CustomerListResults customers={candidates} />
         </Box>
       </Container>
     </Box>

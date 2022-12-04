@@ -1,7 +1,16 @@
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Badge,
+  Box,
+  IconButton,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Bell as BellIcon } from "../icons/bell";
@@ -29,6 +38,7 @@ export const DashboardNavbar = (props) => {
           width: {
             lg: "calc(100% - 280px)",
           },
+          borderBottomColor: "#2D3748",
         }}
         {...other}
       >
@@ -38,6 +48,8 @@ export const DashboardNavbar = (props) => {
             minHeight: 64,
             left: 0,
             px: 2,
+            backgroundColor: "rgb(17, 24, 39)",
+            borderColor: "#2D3748",
           }}
         >
           <IconButton
@@ -51,20 +63,10 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contacts">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
           <Tooltip title="Notifications">
-            <IconButton sx={{ ml: 1 }}>
-              <Badge badgeContent={4} color="primary" variant="dot">
+            <IconButton sx={{ mx: 2 }}>
+              <Badge badgeContent={4} color="info" variant="dot">
                 <BellIcon fontSize="small" />
               </Badge>
             </IconButton>
@@ -76,9 +78,9 @@ export const DashboardNavbar = (props) => {
               cursor: "pointer",
               height: 40,
               width: 40,
-              ml: 1,
+              mx: 1,
             }}
-            src="/static/images/avatars/avatar_1.png"
+            src="/static/images/avatars/avatar_2.png"
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>

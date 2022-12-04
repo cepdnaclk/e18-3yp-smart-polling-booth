@@ -7,7 +7,7 @@ import { SettingsPassword } from "../components/settings/settings-password";
 const Page = () => (
   <>
     <Head>
-      <title>Settings</title>
+      <title>Manage publishes</title>
     </Head>
     <Box
       component="main"
@@ -21,9 +21,9 @@ const Page = () => (
           Settings
         </Typography>
         <SettingsNotifications />
-        {/* <Box sx={{ pt: 3 }}>
+        <Box sx={{ pt: 3 }}>
           <SettingsPassword />
-        </Box> */}
+        </Box>
       </Container>
     </Box>
   </>

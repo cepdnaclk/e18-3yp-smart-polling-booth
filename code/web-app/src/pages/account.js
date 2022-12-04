@@ -3,6 +3,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import { AccountProfile } from "../components/account/account-profile";
 import { AccountProfileDetails } from "../components/account/account-profile-details";
 import { DashboardLayout } from "../components/dashboard-layout";
+import { SettingsPassword } from "../components/settings/settings-password";
 
 const Page = () => (
   <>
@@ -26,6 +27,10 @@ const Page = () => (
           </Grid>
           <Grid item lg={8} md={6} xs={12}>
             <AccountProfileDetails />
+
+            <Box sx={{ pt: 3 }}>
+              <SettingsPassword />
+            </Box>
           </Grid>
         </Grid>
       </Container>

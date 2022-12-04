@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Divider, Drawer, rgbToHex, Typography, useMediaQuery } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { ChartBar as ChartBarIcon } from "../icons/chart-bar";
 import { Cog as CogIcon } from "../icons/cog";
@@ -15,6 +15,7 @@ import { Users as UsersIcon } from "../icons/users";
 import { XCircle as XCircleIcon } from "../icons/x-circle";
 import { Logo } from "./logo";
 import { NavItem } from "./nav-item";
+import { alignProperty } from "@mui/material/styles/cssUtils";
 
 const items = [
   {
@@ -22,41 +23,41 @@ const items = [
     icon: <ChartBarIcon fontSize="small" />,
     title: "Dashboard",
   },
-  // {
-  //   href: "/customers",
-  //   icon: <UsersIcon fontSize="small" />,
-  //   title: "Customers",
-  // },
-  // {
-  //   href: "/products",
-  //   icon: <ShoppingBagIcon fontSize="small" />,
-  //   title: "Products",
-  // },
   {
-    href: "/settings",
+    href: "/candidates",
+    icon: <UsersIcon fontSize="small" />,
+    title: "Candidates",
+  },
+  {
+    href: "/products",
+    icon: <ShoppingBagIcon fontSize="small" />,
+    title: "Divisions",
+  },
+  {
+    href: "/manage-publishes",
     icon: <CogIcon fontSize="small" />,
-    title: "Settings",
+    title: "Manage publishes",
   },
   {
     href: "/account",
     icon: <UserIcon fontSize="small" />,
     title: "Account",
   },
-  // {
-  //   href: "/login",
-  //   icon: <LockIcon fontSize="small" />,
-  //   title: "Login",
-  // },
-  // {
-  //   href: "/register",
-  //   icon: <UserAddIcon fontSize="small" />,
-  //   title: "Register",
-  // },
-  // {
-  //   href: "/404",
-  //   icon: <XCircleIcon fontSize="small" />,
-  //   title: "Error",
-  // },
+  {
+    href: "/login",
+    icon: <LockIcon fontSize="small" />,
+    title: "Login",
+  },
+  {
+    href: "/register",
+    icon: <UserAddIcon fontSize="small" />,
+    title: "Register",
+  },
+  {
+    href: "/404",
+    icon: <XCircleIcon fontSize="small" />,
+    title: "Error",
+  },
 ];
 
 export const DashboardSidebar = (props) => {
@@ -91,8 +92,8 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
-            {/* <NextLink href="/" passHref>
+          <Box sx={{ pl: 3, pt: 3 }}>
+            <NextLink href="/" passHref>
               <a>
                 <Logo
                   sx={{
@@ -101,46 +102,22 @@ export const DashboardSidebar = (props) => {
                   }}
                 />
               </a>
-            </NextLink> */}
+            </NextLink>
           </Box>
-          <Box sx={{ px: 2 }}>
-            <Box
-              sx={{
-                alignItems: "center",
-                backgroundColor: "rgba(255, 255, 255, 0.04)",
-                cursor: "pointer",
-                display: "flex",
-                justifyContent: "space-between",
-                px: 3,
-                py: "11px",
-                borderRadius: 1,
-              }}
-            >
-              <div>
-                <Typography color="inherit" variant="subtitle1">
-                  Time Remaining
-                </Typography>
-                <Typography color="neutral.400" variant="body2">
-                  4 h 23 mins
-                </Typography>
-              </div>
-              <SelectorIcon
-                sx={{
-                  color: "neutral.500",
-                  width: 14,
-                  height: 14,
-                }}
-              />
-            </Box>
+          <Box sx={{ px: 3, py: 1, cursor: "pointer" }}>
+            <div>
+              <Typography color="inherit" variant="h5">
+                Smart Polling
+              </Typography>
+            </div>
           </Box>
         </div>
         <Divider
           sx={{
-            borderColor: "#2D3748",
             my: 3,
           }}
         />
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, py: "20px" }}>
           {items.map((item) => (
             <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
           ))}
@@ -159,6 +136,7 @@ export const DashboardSidebar = (props) => {
             backgroundColor: "neutral.900",
             color: "#FFFFFF",
             width: 280,
+            borderColor: "#2D3748",
           },
         }}
         variant="permanent"
@@ -178,6 +156,7 @@ export const DashboardSidebar = (props) => {
           backgroundColor: "neutral.900",
           color: "#FFFFFF",
           width: 280,
+          borderColor: "#2D3748",
         },
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
