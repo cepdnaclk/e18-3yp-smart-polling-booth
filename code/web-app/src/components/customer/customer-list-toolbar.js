@@ -12,7 +12,7 @@ import { Search as SearchIcon } from "../../icons/search";
 import { Upload as UploadIcon } from "../../icons/upload";
 import { Download as DownloadIcon } from "../../icons/download";
 
-export const CustomerListToolbar = (props) => (
+export const CandidateListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -33,13 +33,13 @@ export const CustomerListToolbar = (props) => (
         <Button startIcon={<DownloadIcon fontSize="small" />} sx={{ mr: 1 }}>
           Export
         </Button>
-        <Button color="primary" variant="contained">
+        <Button color="secondary" variant="contained">
           Add Candidates
         </Button>
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>
-      <Card>
+      <Card sx={{ backgroundColor: "#111827" }}>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
             <TextField
@@ -47,7 +47,7 @@ export const CustomerListToolbar = (props) => (
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SvgIcon color="action" fontSize="small">
+                    <SvgIcon color="divider" fontSize="small">
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
@@ -55,6 +55,7 @@ export const CustomerListToolbar = (props) => (
               }}
               placeholder="Search Candidate"
               variant="outlined"
+              color="divider"
             />
           </Box>
         </CardContent>
