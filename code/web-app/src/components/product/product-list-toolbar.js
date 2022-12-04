@@ -24,7 +24,7 @@ export const ProductListToolbar = (props) => (
       }}
     >
       <Typography sx={{ m: 1 }} variant="h4">
-        Elections
+        Divisions
       </Typography>
       <Box sx={{ m: 1 }}>
         <Button startIcon={<UploadIcon fontSize="small" />} sx={{ mr: 1 }}>
@@ -39,7 +39,7 @@ export const ProductListToolbar = (props) => (
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>
-      <Card>
+      <Card sx={{ backgroundColor: "#111827" }}>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
             <TextField
@@ -53,7 +53,7 @@ export const ProductListToolbar = (props) => (
                   </InputAdornment>
                 ),
               }}
-              placeholder="Search Election"
+              placeholder="Search Division"
               variant="outlined"
             />
           </Box>
