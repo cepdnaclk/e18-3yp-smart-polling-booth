@@ -13,7 +13,7 @@ import {
 
 export const SettingsNotifications = (props) => (
   <form {...props}>
-    <Card>
+    <Card sx={{ backgroundColor: "#111827" }}>
       <CardHeader subheader="Manage the result viewing to the users" title="Pulished Results" />
       <Divider />
       <CardContent>
