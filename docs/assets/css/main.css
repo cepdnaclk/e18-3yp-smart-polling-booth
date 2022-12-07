@@ -37,11 +37,15 @@ reset
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div
 pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q,
 s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
-figure, header, nav, section, article, aside, footer, figcaption {
+figure, header, nav, article, aside, footer, figcaption {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
+}
+
+.section {
+  padding: 30px 0 0 0;
 }
 
 .clearfix:after {
@@ -907,12 +911,20 @@ ul.slick-dots {
 }
 
 .Modern-Slider .item h5 {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 72px;
   font-weight: 700;
   letter-spacing: 2.5px;
   color:#FFF;
   overflow:hidden;
+  animation:fadeOutLeft 1s both;
+  text-transform: uppercase;
+}
+
+.Modern-Slider .item p {
+  margin-bottom: 50px;
+  font-weight: 700;
+  color:#FFF;
   animation:fadeOutLeft 1s both;
 }
 
@@ -961,7 +973,6 @@ introduction
 */
 
 #introduction {
-  padding: 120px 0px 0px 0px;
   position: relative;
   z-index: 9;
 }
@@ -1586,13 +1597,13 @@ portfolio
 --------------------------------------------- 
 */
 
-#projects .filters {
+#design-software .filters {
   margin-top: 50px;
 }
-#projects .filters ul {
+#projdesign-softwarects .filters ul {
   padding: 0;
 }
-#projects .filters ul li {
+#design-software .filters ul li {
   list-style: none;
   display: block;
   padding: 15px 0px;
@@ -1608,29 +1619,29 @@ portfolio
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-#projects .filters ul li.active,
-#projects .filters ul li:hover {
+#design-software .filters ul li.active,
+#design-software .filters ul li:hover {
   color: #5fb759;
 }
-#projects .filters-content {
+#design-software .filters-content {
   margin-top: 50px;
 }
-#projects .filters-content .show {
+#design-software .filters-content .show {
   opacity: 1;
   visibility: visible;
   transition: all 350ms;
 }
-#projects .filters-content .hide {
+#design-software .filters-content .hide {
   opacity: 0;
   visibility: hidden;
   transition: all 350ms;
 }
 
-#projects .filters-content .all {
+#design-software .filters-content .all {
   margin-bottom: 30px;
 }
 
-#projects .filters-content .item {
+#design-software .filters-content .item {
   text-align: center;
   cursor: pointer;
   -webkit-transition: all 0.3s ease-in-out;
@@ -1639,43 +1650,43 @@ portfolio
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-#projects .filters-content .item:hover {
+#design-software .filters-content .item:hover {
   opacity: 0.75;
 }
-#projects .filters-content .item .p-inner {
+#design-software .filters-content .item .p-inner {
   padding: 20px 30px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-#projects .filters-content .item .p-inner h5 {
+#design-software .filters-content .item .p-inner h5 {
   font-size: 15px;
 }
-#projects .filters-content .item .p-inner .cat {
+#design-software .filters-content .item .p-inner .cat {
   font-size: 13px;
 }
-#projects .filters-content .item img {
+#design-software .filters-content .item img {
   width: 100%;
 }
-
-#projects {
+/* 
+#design-software {
   padding-top: 120px;
-}
+} */
 
-#projects .section-heading {
+#design-software .section-heading {
   margin-bottom: 60px;
 }
 
-#projects .section-heading h6 {
+#design-software .section-heading h6 {
   color: #5fb759;
 }
 
 
 @media (max-width: 992px) {
-  #projects .filters ul li {
+  #prodesign-softwarejects .filters ul li {
     display: inline-block;
     margin-right: 10px;
     padding: 0px;
   }
-  #projects .section-heading {
+  #design-software .section-heading {
     margin-bottom: 0px;
   }
 }
