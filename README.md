@@ -11,6 +11,7 @@ ___
 
 ## Suggested solution is a SMART POLLING BOOTH with
 - Use both fingerprints and face recognition to verify the identity of the voters.
+- Eliminate giving invalid votes using software development
 - Facilitating to monitor the voting process time-to-time.
 - Facilitating to analyze the votings.
 - Reducing the cost going for papers, labourers.
