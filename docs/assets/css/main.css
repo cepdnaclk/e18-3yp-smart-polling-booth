@@ -45,7 +45,7 @@ figure, header, nav, article, aside, footer, figcaption {
 }
 
 .section {
-  padding: 30px 0 0 0;
+  padding: 50px 0;
 }
 
 .clearfix:after {
@@ -314,7 +314,6 @@ a.text-button-icon:hover i {
   margin-top: 20px;
   margin-bottom: 0px;
 }
-
 
 /* 
 ---------------------------------------------
@@ -978,35 +977,48 @@ introduction
 }
 
 #introduction .container {
-  border-bottom: 5px solid #f7f7f7;
-  padding-bottom: 80px;
+  border-bottom: 3px solid #e6e5e5;
+  padding-bottom: 30px;
+}
+
+#introduction .container p{
+  font-size: 18px;
 }
 
 #introduction .section-heading {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 #introduction .section-heading h6 {
   color: #5fb759;
+  font-weight: 500;
 }
 
-#introduction .service-item {
-  margin-top: 30px;
+#introduction .column {
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+  padding-bottom: 20px;
 }
 
-#introduction .service-item img {
-  float: left;
-  margin-right: 15px;
-  width: 46px;
-  height: 46px;
+#introduction .column h5{
+  padding-top: 12px;
+  justify-content: center;
 }
 
-#abintroductionout .service-item h4 {
-  font-size: 15px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.25px;
-  line-height: 46px;
+#introduction .column ul li{
+  list-style: square;
+  color: #5fb759;
+  padding-top: 3px;
+}
+
+#introduction .explanation {
+  padding-bottom: 30px;
+}
+
+#introduction .explanation span{
+  font-weight: bold;
+  font-size: 20px;
 }
 
 #introduction a.main-button-icon {
@@ -1027,44 +1039,25 @@ introduction
 #introduction .video {
   height: 100%;
   width: 100%;
-  padding: 40px 10px 0 10px;
+  padding: 0 10px;
 }
 
-/*
----------------------------------------------
-features
----------------------------------------------
-*/
-
-#features {
-  padding-top: 80px;
-  padding-bottom: 70px;
+#introduction .features .features-content {
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
-#features .features-item {
-  margin-bottom: 50px;
+#introduction .features .features-content img{
+  height: 25px;
 }
 
-.features-item .features-icon {
-  float: left;
-}
-
-#features .features-content {
-  margin-left: 75px;
-}
-
-.features-item .features-content h4 {
+#introduction .features .features-item .features-content h4 {
   font-size: 15px;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.25px;
-  margin-bottom: 15px;
+  padding-left: 15px;
 }
-
-.features-item .features-content p {
-  margin-bottom: 15px;
-}
-
 
 
 /*
