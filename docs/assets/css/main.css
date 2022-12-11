@@ -14,9 +14,10 @@ Table of contents
 03. global styles
 04. header
 05. banner
-06. features
-07. team
-08. contact
+06. introduction
+07. Design
+08. Technology
+09. Team
 09. footer
 10. preloader
 11. search
@@ -45,7 +46,7 @@ figure, header, nav, article, aside, footer, figcaption {
 }
 
 .section {
-  padding: 50px 0;
+  padding-top: 50px;
 }
 
 .clearfix:after {
@@ -305,14 +306,23 @@ a.text-button-icon:hover i {
   letter-spacing: 0.25px;
   margin-top: 0px;
   margin-bottom: 0px;
+  color: #5fb759;
+  font-weight: 500;
 }
 
 .section-heading h2 {
   font-size: 32px;
   font-weight: 800;
   letter-spacing: 1px;
-  margin-top: 20px;
-  margin-bottom: 0px;
+  padding-top: 30px;
+  margin-bottom: 20px;
+}
+
+.image {
+  height: 70%;
+  width: 70%;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
 /* 
@@ -390,8 +400,8 @@ header
 }
 
 .header-area .main-nav .nav li {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .header-area .main-nav .nav .search-icon {
@@ -712,7 +722,7 @@ header
   .header-area .main-nav .nav li {
     width: 100%;
     background: #fff;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #000;
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
@@ -739,6 +749,11 @@ header
     width: 100%;
     box-shadow: none;
     height: 0px;
+  }
+  .header-area .main-nav .nav li.submenu ul li {
+    font-size: 12px;
+    font-weight: 400;
+    border-bottom:none;
   }
   .header-area .main-nav .nav li.submenu ul li a {
     font-size: 12px;
@@ -985,15 +1000,6 @@ introduction
   font-size: 18px;
 }
 
-#introduction .section-heading {
-  margin-bottom: 15px;
-}
-
-#introduction .section-heading h6 {
-  color: #5fb759;
-  font-weight: 500;
-}
-
 #introduction .column {
   display: flex;
   flex-direction: column;
@@ -1010,10 +1016,6 @@ introduction
   list-style: square;
   color: #5fb759;
   padding-top: 3px;
-}
-
-#introduction .explanation {
-  padding-bottom: 30px;
 }
 
 #introduction .explanation span{
@@ -1059,6 +1061,12 @@ introduction
   padding-left: 15px;
 }
 
+
+/*
+---------------------------------------------
+Design
+---------------------------------------------
+*/
 
 /*
 ---------------------------------------------
@@ -1121,18 +1129,17 @@ subscribe
 
 /*
 --------------------------------------------
-testimonials
+team
 --------------------------------------------
 */
 #team {
-  margin-top: 120px;
-  padding: 80px 0px;
-  padding: 120px 0px;
+  margin-top: 80px;
   background-image: url(../images/slide-03.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 #team .section-heading {
   text-align: center;
   color: #fff;
@@ -1591,7 +1598,7 @@ portfolio
 */
 
 #design-software .filters {
-  margin-top: 50px;
+  margin-top: 10px;
 }
 #projdesign-softwarects .filters ul {
   padding: 0;
@@ -1617,7 +1624,7 @@ portfolio
   color: #5fb759;
 }
 #design-software .filters-content {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 #design-software .filters-content .show {
   opacity: 1;
@@ -1659,18 +1666,14 @@ portfolio
 #design-software .filters-content .item img {
   width: 100%;
 }
-/* 
-#design-software {
-  padding-top: 120px;
-} */
 
-#design-software .section-heading {
+/* #design-software .section-heading {
   margin-bottom: 60px;
 }
 
 #design-software .section-heading h6 {
   color: #5fb759;
-}
+} */
 
 
 @media (max-width: 992px) {
