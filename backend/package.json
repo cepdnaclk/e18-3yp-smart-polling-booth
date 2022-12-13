@@ -1,0 +1,17 @@
+{
+  "name": "smart-polling-booth",
+  "version": "1.0.0",
+  "description": "Third year project in Faculty of Engineering, University of Peradeniya, Sri Lanka. Group 03",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Group 03",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "joi": "^17.7.0",
+    "mongoose": "^6.8.0",
+    "nodemon": "^2.0.20"
+  }
+}
