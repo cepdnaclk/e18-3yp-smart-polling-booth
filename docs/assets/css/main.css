@@ -319,10 +319,9 @@ a.text-button-icon:hover i {
 }
 
 .image {
-  height: 70%;
+  height: 70%;  
   width: 70%;
-  margin: auto;
-  margin-bottom: 20px;
+  margin: 30px auto;
 }
 
 /* 
