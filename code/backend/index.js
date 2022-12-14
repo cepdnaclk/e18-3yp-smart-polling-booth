@@ -4,7 +4,7 @@ const app = express();
 const voters = require("./routes/voters");
 
 mongoose
-  .connect("mongodb://localhost/smart-polling-booth")
+  .connect("mongodb://127.0.0.1/smart-polling-booth")
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
