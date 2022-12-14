@@ -1,182 +1,159 @@
-const Joi = require("joi");
+// const Joi = require("joi");
+const { Voter } = require("../models/voter");
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 
-const voterSchema = new mongoose.Schema({
-  fname: {
-    type: String,
-    required: true,
-    validate: function (value) {
-      value.length > 3;
-    },
-  },
-  lname: {
-    type: String,
-    required: true,
-    validate: function (value) {
-      value.length > 3;
-    },
-  },
-  division: {
-    type: String,
-    required: true,
-    enum: [
-      "Matara",
-      "Galle",
-      "Hambantota",
-      "Kalutara",
-      "Colombo",
-      "Kegalle",
-      "Kandy",
-      "Matale",
-      "Anuradhapura",
-      "Polonnaruwa",
-      "Vauniya",
-      "Madakalauwa",
-      "Ampara",
-      "Gampaha",
-      "Nuwara Eliya",
-      "Jaffna",
-      "Mannar",
-      "Mulathiv",
-      "Kilinochchi",
-      "Batticaloa",
-      "Trincomalee",
-      "Kurunagala",
-      "Puttalam",
-      "Badulla",
-      "Monaragala",
-      "Rathnapura",
-    ],
-  },
-  nic: { type: String, required: true, minlength: 10, maxlength: 12 },
-  regDate: { type: Date },
-  fingerprintImg: { type: String, required: true },
-  faceRecImg: { type: String, required: true },
-  isVoted: { type: Boolean, required: true },
-  contactNumber: { type: Number, required: true },
-});
-
-const Voter = mongoose.model("Voter", voterSchema);
-
-// get al voters
+// get all voters (done)
 router.get("/", async (req, res) => {
   const voters = await Voter.find();
   console.log("Get Called");
   res.send(voters);
 });
 
+// add a voter (done)
 router.post("/", async (req, res) => {
-  const { error } = validateVoters(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  // const { error } = validateVoters(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
 
-  let voter = new Voter({
+  const voter = new Voter({
     fname: req.body.fname,
     lname: req.body.lname,
     division: req.body.division,
     nic: req.body.nic,
     regDate: req.body.regDate,
-    fingerprintImg: req.body.fingerprint,
+    fingerprintImg: req.body.fingerprintImg,
     faceRecImg: req.body.faceRecImg,
     isVoted: req.body.isVoted,
     contactNumber: req.body.contactNumber,
   });
 
-  voter = await voter.save();
+  try {
+    const newVoter = await voter.save();
+    res.send(newVoter);
+    console.log("voter created successfully");
+  } catch (ex) {
+    // for (field in ex.errors) console.log(ex.errors[field].message);
+    return res.status(404).send("You Cannot vote");
+  }
 
-  res.send(voter);
-  console.log("Post Called");
+  console.log("Post a voter Called");
 });
 
+// vote by the voter
 router.put("/:id", async (req, res) => {
-  const { error } = validateVoters(req.body);
-  if (error) return res.status(400).send(error.details[0].messages);
+  // const { error } = validateVoters(req.body);
+  // if (error) return res.status(400).send(error.details[0].messages);
 
   // find the relevent voter and make he as voted
-  const voter = Voter.findOneAndUpdate(
-    req.params.nic,
-    { isVoted: true },
-    { new: true }
+  // const voter = await Voter.findOneAndUpdate(
+  const voter = await Voter.findByIdAndUpdate(
+    req.params.id,
+    { isVoted: true }
+    // { new: true }
   );
 
   //   if there is no voter
   if (!voter)
     return res
       .status(400)
-      .send("The voter with given nic is not registered votre");
+      .send("The voter with given NIC is not a registered voter");
 
   // if there is a voter and updated the voting status, response this.
   res.send(voter);
   console.log("Put Called");
 });
 
+// delete a voter (by the admins) (done)
 router.delete("/:id", async (req, res) => {
-  const deletingVoter = await Voter.findOneAndRemove(req.params.nic);
+  try {
+    const deletingVoter = await Voter.findByIdAndRemove(req.params.id);
+    res.send(deletingVoter);
+    console.log(deletingVoter);
+  } catch (ex) {
+    // for (field in ex.errors) console.log(ex.errors[field].message);
+    return res.status(404).send("The voter with the given ID was not found");
+  }
 
-  if (!deletingVoter)
-    return res.status(404).send("The voter with the given ID was not found.");
+  // if (!deletingVoter)
+  //   return res.status(404).send("The voter with the given ID was not found.");
 
-  res.send(deletingVoter);
+  // res.send(deletingVoter);
   console.log("Delete Called");
 });
 
+// get a voter (by the admin)
 router.get("/:id", async (req, res) => {
-  const voter = await Voter.findOne(req.params.nic);
-
-  if (!voter)
+  try {
+    const voter = await Voter.findById(req.params.id);
+    res.send(voter);
+    console.log(voter);
+  } catch (err) {
     return res.status(404).send("The voter with the given ID was not found.");
-
-  res.send(voter);
+  }
+  // if (!voter) res.send(voter);
   console.log("Get one Voter Called");
 });
 
-function validateVoters(voter) {
-  const schema = {
-    fname: Joi.string().min(3).max(255).required(),
-    lname: Joi.string().min(3).max(255).required(),
-    division: Joi.string()
-      .valid(
-        "Matara",
-        "Galle",
-        "Hambantota",
-        "Kalutara",
-        "Colombo",
-        "Kegalle",
-        "Kandy",
-        "Matale",
-        "Anuradhapura",
-        "Polonnaruwa",
-        "Vauniya",
-        "Madakalauwa",
-        "Ampara",
-        "Gampaha",
-        "Nuwara Eliya",
-        "Jaffna",
-        "Mannar",
-        "Mulathiv",
-        "Kilinochchi",
-        "Batticaloa",
-        "Trincomalee",
-        "Kurunagala",
-        "Puttalam",
-        "Badulla",
-        "Monaragala",
-        "Rathnapura"
-      )
-      .required(),
-    nic: Joi.string().min(10).max(12).required(),
-    regDate: Joi.date().less("1-1-2004"),
-    fingerprintImg: Joi.string().required(),
-    faceRecImg: Joi.string().required(),
-    isVoted: Joi.boolean().required,
-    contactNumber: Joi.string()
-      .regex(/^[0-9]{10}$/)
-      .messages({ "string.pattern.base": `Phone number must have 10 digits.` })
-      .required(),
-  };
+// function validateGenre(genre) {
+//   const schema = {
+//     name: Joi.string().min(3).required()
+//   };
 
-  return Joi.validate(voter, schema);
-}
+//   return Joi.validate(genre, schema);
+// }
+
+// validating the voter
+// function validateVoters(voter) {
+//   const schema = {
+//     fname: Joi.string().min(3).max(255).required(),
+//     lname: Joi.string().min(3).max(255).required(),
+//     division: Joi.string()
+//       .valid(
+//         "Matara",
+//         "Galle",
+//         "Hambantota",
+//         "Kalutara",
+//         "Colombo",
+//         "Kegalle",
+//         "Kandy",
+//         "Matale",
+//         "Anuradhapura",
+//         "Polonnaruwa",
+//         "Vauniya",
+//         "Madakalauwa",
+//         "Ampara",
+//         "Gampaha",
+//         "Nuwara Eliya",
+//         "Jaffna",
+//         "Mannar",
+//         "Mulathiv",
+//         "Kilinochchi",
+//         "Batticaloa",
+//         "Trincomalee",
+//         "Kurunagala",
+//         "Puttalam",
+//         "Badulla",
+//         "Monaragala",
+//         "Rathnapura"
+//       )
+//       .required(),
+//     nic: Joi.string().min(10).max(12).required(),
+//     regDate: Joi.date().less("1-1-2004"),
+//     fingerprintImg: Joi.string().required(),
+//     faceRecImg: Joi.string().required(),
+//     isVoted: Joi.boolean().required,
+//     contactNumber: Joi.string()
+//       .regex(/^[0-9]{10}$/)
+//       .messages({ "string.pattern.base": `Phone number must have 10 digits.` })
+//       .required(),
+//   };
+
+//   // return Joi.validate(voter, schema);
+//   return Joi.validate(voter, schema);
+
+//   // const validation = schema.validate(voter);
+//   // return validation;
+// }
 
 module.exports = router;

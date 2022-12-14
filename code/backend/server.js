@@ -65,11 +65,11 @@ const Voter = mongoose.model("Voter", voterSchema);
 
 async function regVoter() {
   const voter = new Voter({
-    fname: "Dhananjaya-06",
+    fname: "Dhananjaya",
     lname: "Weerasinghe",
     division: "Badulla",
-    nic: "433456783V",
-    regDate: "2017-03-08",
+    nic: "133456783V",
+    regDate: "2017-03-01",
     fingerprintImg: "https:///dhana/fingImg",
     faceRecImg: "https:///dhana/faceRecImg",
     isVoted: false,
@@ -84,7 +84,8 @@ async function regVoter() {
 }
 
 async function getVotes() {
-  const voters = await Voter.find({ isVoted: true });
+  // const voters = await Voter.find({ isVoted: true });
+  const voters = await Voter.find();
   console.log(voters);
 }
 
@@ -108,7 +109,7 @@ async function deleteVoter(id) {
   console.log(voter);
 }
 
-getVotes();
-// vote("223456789V");
+// getVotes();
+vote("133456783V");
 // deleteVoter("223456789V");
 // regVoter();
