@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
+const Province = require("./province");
 
 const districtSchema = new mongoose.Schema({
   provinceID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Province",
+  },
+  name: {
     type: String,
     required: true,
     unique: true,
@@ -34,29 +39,40 @@ const districtSchema = new mongoose.Schema({
       "Rathnapura",
     ],
   },
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   voterCount: {
     type: Number,
     required: true,
   },
-  provinceID: {
+  districtID: {
     type: String,
     required: true,
     unique: true,
     enum: [
-      "Southern",
-      "Western",
-      "Central",
-      "Nothern",
-      "Eastern",
-      "North-Eastern",
-      "Sabaragamuwa",
-      "Wayamba",
-      "Uva",
+      "D-01",
+      "D02",
+      "D-03",
+      "D-04",
+      "D-05",
+      "D-06",
+      "D-07",
+      "D-08",
+      "D-09",
+      "D-10",
+      "D-11",
+      "D-12",
+      "D-13",
+      "D-14",
+      "D-15",
+      "D-16",
+      "D-17",
+      "D-18",
+      "D-19",
+      "D-20",
+      "D-21",
+      "D-22",
+      "D-23",
+      "D-24",
+      "D-25",
     ],
   },
 });

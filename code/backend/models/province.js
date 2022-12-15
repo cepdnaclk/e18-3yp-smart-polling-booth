@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 
-const districtSchema = new mongoose.Schema({
+const provinceSchema = new mongoose.Schema({
   provinceID: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  name: {
     type: String,
     required: true,
     unique: true,
@@ -17,17 +22,12 @@ const districtSchema = new mongoose.Schema({
       "Uva",
     ],
   },
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   voterCount: {
     type: Number,
     required: true,
   },
 });
 
-const Division = mongoose.model("Division", districtSchema);
+const Province = mongoose.model("Province", provinceSchema);
 
-exports.Voter = Division;
+exports.Province = Province;
