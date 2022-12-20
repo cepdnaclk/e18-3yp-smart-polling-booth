@@ -5,31 +5,46 @@ import axios from "axios";
 import useSWR from "swr";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Box, Button, FormHelperText, Grid, Tab, Tabs, TextField, Typography } from "@mui/material";
-import { auth, ENABLE_AUTH } from "../../lib/auth";
+import { Box, Button, FormHelperText, Grid, Divider, TextField, Typography } from "@mui/material";
 import { Logo } from "../../components/logo";
 import { useAuthContext } from "../../contexts/auth-context";
 import Router from "next/router";
 
 const Page = () => {
-  const [emailSent, setEmailSent] = useState(false);
+  const [emailSent, setEmailSent] = useState("");
   const authContext = useAuthContext();
 
   const formik = useFormik({
     initialValues: {
       email: "",
+      password: "",
       submit: null,
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+      password: Yup.string().min(8).required("Password is required"),
     }),
     onSubmit: async (values, helpers) => {
+      // console.log(values);
       try {
-        const url = "http://localhost:4000/api/voters";
-        const res = await axios.post(url).catch((error) => {
-          console.log("error " + error.message);
-        });
-        console.log(res.data);
+        const url = "http://localhost:4000/api/admins/login";
+        const res = await axios
+          .post(url, {
+            ...values,
+          })
+          .catch((error) => {
+            console.log(error.response.status);
+          });
+
+        console.log(res.data.user);
+        if (res.status == 200) {
+          authContext.signIn(res.data.user);
+          Router.push("/").catch(console.error);
+        } else if (res.status == 201) {
+          console.log(res.data.success);
+          formik.resetForm();
+          helpers.setFieldError("submit", "Wrong credentials. Please Try again!");
+        }
         setEmailSent(true);
       } catch (err) {
         console.error(err);
@@ -40,7 +55,7 @@ const Page = () => {
   });
 
   const handleRetry = () => {
-    setEmailSent(false);
+    // setEmailSent(false);
   };
 
   const handleSkip = () => {
@@ -117,85 +132,67 @@ const Page = () => {
                   width: "100%",
                 }}
               >
-                {emailSent ? (
-                  <div>
-                    <Typography sx={{ mb: 1 }} variant="h4">
-                      Confirm your email
-                    </Typography>
-                    <Typography>
-                      We emailed a magic link to&nbsp;
-                      <Box
-                        component="span"
-                        sx={{
-                          color: "primary.main",
-                        }}
-                      >
-                        {formik.values.email}
-                      </Box>
-                      <br />
-                      Click the link to to log in.
-                    </Typography>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                        gap: 3,
-                        mt: 3,
-                      }}
-                    >
-                      <Typography color="text.secondary" variant="body2">
-                        Wrong email?
-                      </Typography>
-                      <Button color="inherit" onClick={handleRetry}>
-                        Use a different email
-                      </Button>
-                    </Box>
-                  </div>
-                ) : (
-                  <div>
-                    <Typography sx={{ mb: 1 }} variant="h4">
-                      Welcome
-                    </Typography>
-                    <Typography color="text.secondary" sx={{ mb: 3 }} variant="body2">
-                      Sign up on the internal platform
-                    </Typography>
+                <div>
+                  <Typography sx={{ mb: 1 }} variant="h4">
+                    Welcome
+                  </Typography>
+                  <Typography color="text.secondary" sx={{ mb: 3 }} variant="body2">
+                    Sign up on the internal platform
+                  </Typography>
 
-                    <div>
-                      <TextField
-                        error={Boolean(formik.touched.email && formik.errors.email)}
-                        fullWidth
-                        helperText={formik.touched.email && formik.errors.email}
-                        label="Email Address"
-                        name="email"
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        type="email"
-                        value={formik.values.email}
-                        variant="outlined"
-                      />
-                      <FormHelperText sx={{ mt: 1 }}>
-                        Enter a valid email since this is a fully integrated authentication system.
-                      </FormHelperText>
-                      {formik.errors.submit && (
-                        <Typography color="error" sx={{ mt: 2 }} variant="body2">
-                          {formik.errors.submit}
-                        </Typography>
-                      )}
-                      <Button
-                        fullWidth
-                        size="large"
-                        sx={{ mt: 3 }}
-                        onClick={() => formik.handleSubmit()}
-                        variant="contained"
-                      >
-                        Continue
-                      </Button>
-                      <Button fullWidth size="large" sx={{ mt: 3 }} onClick={handleSkip}>
-                        Skip authentication
-                      </Button>
-                    </div>
+                  <div>
+                    <TextField
+                      error={Boolean(formik.touched.password && formik.errors.email)}
+                      fullWidth
+                      helperText={formik.touched.email && formik.errors.email}
+                      label="Email Address"
+                      name="email"
+                      onBlur={formik.handleBlur}
+                      onChange={formik.handleChange}
+                      type="email"
+                      value={formik.values.email}
+                      variant="outlined"
+                    />
+                    <Divider
+                      sx={{
+                        my: 3,
+                      }}
+                    />
+                    <TextField
+                      error={Boolean(formik.touched.password && formik.errors.password)}
+                      fullWidth
+                      helperText={formik.touched.password && formik.errors.password}
+                      label="Password"
+                      name="password"
+                      onBlur={formik.handleBlur}
+                      onChange={formik.handleChange}
+                      type="password"
+                      value={formik.values.password}
+                      variant="outlined"
+                      isSecured={true}
+                    />
+                    <FormHelperText sx={{ mt: 1 }}>
+                      Enter a valid credentials since this is fully authenticated system.
+                    </FormHelperText>
+                    {formik.errors.submit && (
+                      <Typography color="error" sx={{ mt: 2 }} variant="body2">
+                        {formik.errors.submit}
+                      </Typography>
+                    )}
+                    <Button
+                      fullWidth
+                      size="large"
+                      sx={{ mt: 3 }}
+                      onClick={() => formik.handleSubmit()}
+                      variant="contained"
+                    >
+                      Continue
+                    </Button>
+                    <Button fullWidth size="large" sx={{ mt: 3 }} onClick={handleSkip}>
+                      Skip authentication
+                    </Button>
                   </div>
-                )}
+                </div>
               </Box>
             </Box>
           </Grid>
@@ -225,20 +222,11 @@ const Page = () => {
                 }}
                 variant="h1"
               >
-                Authentication sponsored by&nbsp;
-                <Box
-                  component="a"
-                  href="https://zalter.com?ref=devias-mk-react"
-                  sx={{ color: "#15B79E" }}
-                  target="_blank"
-                >
-                  zalter.com
-                </Box>
+                Wanna make your vote a smart and valid.The best solution is at your fingertips.
               </Typography>
               <Typography align="center" sx={{ mb: 3 }} variant="subtitle1">
-                Create secure, seamless user experiences with Zalter Passwordless Authentication.
+                Place your vote securely and lead towards a better tomorrow.
               </Typography>
-              <img alt="" src="/static/images/sign-in-illustration.svg" />
             </Box>
           </Grid>
         </Grid>

@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   Grid,
   Typography,
+  TextField,
 } from "@mui/material";
 
 export const SettingsNotifications = (props) => (
@@ -35,7 +36,10 @@ export const SettingsNotifications = (props) => (
               control={<Checkbox color="primary" defaultChecked />}
               label="Current overall result"
             />
-            <FormControlLabel control={<Checkbox color="primary" />} label="Number of voters" />
+            <FormControlLabel
+              control={<Checkbox color="primary" defaultChecked />}
+              label="Number of voters"
+            />
           </Grid>
           <Grid
             item
@@ -59,6 +63,22 @@ export const SettingsNotifications = (props) => (
         </Grid>
       </CardContent>
       <Divider />
+      <form>
+        <Card sx={{ backgroundColor: "#111827" }}>
+          <CardContent>
+            <TextField
+              fullWidth
+              label="Password"
+              margin="normal"
+              name="Password"
+              // onChange={handleChange}
+              type="password"
+              // value={values.password}
+              variant="outlined"
+            />
+          </CardContent>
+        </Card>
+      </form>
       <Box
         sx={{
           display: "flex",

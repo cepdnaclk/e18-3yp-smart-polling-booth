@@ -31,12 +31,11 @@ const states = [
 
 export const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    state: "",
-    country: "",
+    firstName: "Sagara",
+    lastName: "Kalansooriya",
+    email: "admin@gmail.com",
+    phone: "0711234567",
+    regNo: "E/YY/XXX",
   });
 
   const handleChange = (event) => {
@@ -101,32 +100,13 @@ export const AccountProfileDetails = (props) => {
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label="Country"
-                name="country"
+                label="Registration Number"
+                name="regNo"
                 onChange={handleChange}
                 required
-                value={values.country}
+                value={values.regNo}
                 variant="outlined"
               />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                label="Select Province"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
             </Grid>
           </Grid>
         </CardContent>

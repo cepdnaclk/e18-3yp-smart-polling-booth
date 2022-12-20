@@ -68,8 +68,6 @@ export const DashboardSidebar = (props) => {
     noSsr: false,
   });
   const menu = 0;
-  console.log(lgUp);
-  console.log("hello");
 
   useEffect(
     () => {
