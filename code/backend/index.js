@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const votes = require("./routes/votes");
 const voters = require("./routes/voters");
+const admins = require("./routes/admins");
 const parties = require("./routes/parties");
 const provinces = require("./routes/provinces");
 const districts = require("./routes/districts");
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use("/api/votes", votes);
 app.use("/api/voters", voters);
+app.use("/api/admins", admins);
 app.use("/api/parties", parties);
 app.use("/api/provinces", provinces);
 app.use("/api/districts", districts);
