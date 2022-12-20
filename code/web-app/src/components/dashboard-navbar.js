@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import NextLink from "next/link";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import {

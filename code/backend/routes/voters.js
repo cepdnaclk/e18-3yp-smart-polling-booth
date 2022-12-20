@@ -6,15 +6,21 @@ const router = express.Router();
 
 // get all voters (done)
 router.get("/", async (req, res) => {
-  const voters = await Voter.find();
   console.log("Get Called");
-  res.send(voters);
 });
 
 // add a voter (done)
 router.post("/", async (req, res) => {
   // const { error } = validateVoters(req.body);
   // if (error) return res.status(400).send(error.details[0].message);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
 
   const voter = new Voter({
     fname: req.body.fname,
@@ -27,6 +33,9 @@ router.post("/", async (req, res) => {
     isVoted: req.body.isVoted,
     contactNumber: req.body.contactNumber,
   });
+
+  console.log("called");
+  return res.status(201).json({ message: "You Cannot vote" });
 
   try {
     const newVoter = await voter.save();

@@ -45,7 +45,7 @@ export const candidates = [
     name: "Dhananjaya Weerasinghe",
     phone: "+94 75 23 3975",
   },
-    {
+  {
     id: uuid(),
     address: {
       country: "Sri Lanka",
@@ -73,5 +73,4 @@ export const candidates = [
     name: "Sanjaya Sathsarana",
     phone: "+94 75 23 3975",
   },
-
 ];

@@ -66,12 +66,6 @@ const Page = () => (
           <Grid item lg={4} md={6} xl={3} xs={12}>
             <Summary />
           </Grid>
-          {/* <Grid item lg={4} md={6} xl={12} xs={12}>
-            <LatestProducts sx={{ height: "100%" }} />
-          </Grid>
-          <Grid item lg={8} md={12} xl={12} xs={12}>
-            <LatestOrders />
-          </Grid> */}
         </Grid>
       </Container>
     </Box>

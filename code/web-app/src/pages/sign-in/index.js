@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
+import axios from "axios";
+import useSWR from "swr";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Box, Button, FormHelperText, Grid, Tab, Tabs, TextField, Typography } from "@mui/material";
@@ -10,9 +12,9 @@ import { useAuthContext } from "../../contexts/auth-context";
 import Router from "next/router";
 
 const Page = () => {
-  const [tab, setTab] = useState("email");
   const [emailSent, setEmailSent] = useState(false);
   const authContext = useAuthContext();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,23 +24,12 @@ const Page = () => {
       email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
     }),
     onSubmit: async (values, helpers) => {
-      if (!ENABLE_AUTH) {
-        helpers.setFieldError("submit", "Zalter authentication not enabled");
-        helpers.setSubmitting(false);
-        return;
-      }
-
       try {
-        // When in development, this will be 'http://localhost:3000/sign-in/confirm'
-        // Remember to configure it in your project settings
-        const redirectUri = window.location.href + "/confirm";
-
-        // This can be call inside AuthProvider component, but we do it here for simplicity
-        await auth.signInWithLink("start", {
-          email: values.email,
-          redirectUri,
+        const url = "http://localhost:4000/api/voters";
+        const res = await axios.post(url).catch((error) => {
+          console.log("error " + error.message);
         });
-        helpers.setSubmitting(false);
+        console.log(res.data);
         setEmailSent(true);
       } catch (err) {
         console.error(err);
@@ -47,10 +38,6 @@ const Page = () => {
       }
     },
   });
-
-  const handleTabChange = (event, value) => {
-    setTab(value);
-  };
 
   const handleRetry = () => {
     setEmailSent(false);
@@ -73,7 +60,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Sign in | Material Kit</title>
+        <title>Sign in</title>
       </Head>
       <Box
         component="main"
@@ -172,58 +159,41 @@ const Page = () => {
                     <Typography color="text.secondary" sx={{ mb: 3 }} variant="body2">
                       Sign up on the internal platform
                     </Typography>
-                    <Tabs onChange={handleTabChange} sx={{ mb: 3 }} value={tab}>
-                      <Tab label="Email" value="email" />
-                      <Tab label="Phone Number" value="phoneNumber" />
-                    </Tabs>
-                    {tab === "email" && (
-                      <div>
-                        <TextField
-                          error={Boolean(formik.touched.email && formik.errors.email)}
-                          fullWidth
-                          helperText={formik.touched.email && formik.errors.email}
-                          label="Email Address"
-                          name="email"
-                          onBlur={formik.handleBlur}
-                          onChange={formik.handleChange}
-                          type="email"
-                          value={formik.values.email}
-                          variant="outlined"
-                        />
-                        <FormHelperText sx={{ mt: 1 }}>
-                          Enter a valid email since this is a fully integrated authentication
-                          system. Optionally you can skip.
-                        </FormHelperText>
-                        {formik.errors.submit && (
-                          <Typography color="error" sx={{ mt: 2 }} variant="body2">
-                            {formik.errors.submit}
-                          </Typography>
-                        )}
-                        <Button
-                          fullWidth
-                          size="large"
-                          sx={{ mt: 3 }}
-                          onClick={() => formik.handleSubmit()}
-                          variant="contained"
-                        >
-                          Continue
-                        </Button>
-                        <Button fullWidth size="large" sx={{ mt: 3 }} onClick={handleSkip}>
-                          Skip authentication
-                        </Button>
-                      </div>
-                    )}
-                    {tab === "phoneNumber" && (
-                      <div>
-                        <Typography sx={{ mb: 1 }} variant="h6">
-                          Not available in the demo
+
+                    <div>
+                      <TextField
+                        error={Boolean(formik.touched.email && formik.errors.email)}
+                        fullWidth
+                        helperText={formik.touched.email && formik.errors.email}
+                        label="Email Address"
+                        name="email"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        type="email"
+                        value={formik.values.email}
+                        variant="outlined"
+                      />
+                      <FormHelperText sx={{ mt: 1 }}>
+                        Enter a valid email since this is a fully integrated authentication system.
+                      </FormHelperText>
+                      {formik.errors.submit && (
+                        <Typography color="error" sx={{ mt: 2 }} variant="body2">
+                          {formik.errors.submit}
                         </Typography>
-                        <Typography color="text.secondary">
-                          Zalter Identity does support SMS passcodes, but to prevent unnecessary
-                          costs we disabled this feature in the demo.
-                        </Typography>
-                      </div>
-                    )}
+                      )}
+                      <Button
+                        fullWidth
+                        size="large"
+                        sx={{ mt: 3 }}
+                        onClick={() => formik.handleSubmit()}
+                        variant="contained"
+                      >
+                        Continue
+                      </Button>
+                      <Button fullWidth size="large" sx={{ mt: 3 }} onClick={handleSkip}>
+                        Skip authentication
+                      </Button>
+                    </div>
                   </div>
                 )}
               </Box>
