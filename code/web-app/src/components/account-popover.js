@@ -23,24 +23,12 @@ export const AccountPopover = (props) => {
     // If this has been skipped, then redirect to "sign-in" directly
     const authSkipped = globalThis.sessionStorage.getItem("skip-auth") === "true";
 
-    if (authSkipped) {
-      // Cleanup the skip auth state
-      globalThis.sessionStorage.removeItem("skip-auth");
-
-      // Redirect to sign-in page
-      Router.push("/sign-in").catch(console.error);
-      return;
-    }
-
     try {
-      // This can be call inside AuthProvider component, but we do it here for simplicity
-      await auth.signOut();
-
       // Update Auth Context state
       authContext.signOut();
 
       // Redirect to sign-in page
-      Router.push("/sign-in").catch(console.error);
+      Router.push("/").catch(console.error);
     } catch (err) {
       console.error(err);
     }
@@ -56,7 +44,7 @@ export const AccountPopover = (props) => {
       onClose={onClose}
       open={open}
       PaperProps={{
-        sx: { width: "300px" },
+        sx: { width: "300px", backgroundColor: "#000" },
       }}
       {...other}
     >

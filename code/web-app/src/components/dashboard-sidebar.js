@@ -8,6 +8,7 @@ import { Cog as CogIcon } from "../icons/cog";
 import { ShoppingBag as ShoppingBagIcon } from "../icons/shopping-bag";
 import { User as UserIcon } from "../icons/user";
 import { Users as UsersIcon } from "../icons/users";
+import { Lock as LockIcon } from "../icons/lock";
 import { Logo } from "./logo";
 import { useAuthContext } from "../contexts/auth-context";
 import { NavItem } from "./nav-item";
@@ -22,6 +23,11 @@ const defaultMenu = [
     href: "/products",
     icon: <ShoppingBagIcon fontSize="small" />,
     title: "Divisions",
+  },
+  {
+    href: "/sign-in",
+    icon: <LockIcon fontSize="small" />,
+    title: "Sign in",
   },
 ];
 
@@ -51,16 +57,10 @@ const adminMenu = [
     icon: <UserIcon fontSize="small" />,
     title: "Account",
   },
-  {
-    href: "/sign-in",
-    icon: <UserIcon fontSize="small" />,
-    title: "sign-in",
-  },
 ];
 
 export const DashboardSidebar = (props) => {
   const authContext = useAuthContext();
-  // const [isLogged, seetIsL0gged] = useState();
   const { open, onClose } = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
