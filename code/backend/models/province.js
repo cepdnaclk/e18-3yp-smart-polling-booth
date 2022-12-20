@@ -10,20 +10,15 @@ const provinceSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    enum: [
-      "Southern",
-      "Western",
-      "Central",
-      "Nothern",
-      "Eastern",
-      "North-Eastern",
-      "Sabaragamuwa",
-      "Wayamba",
-      "Uva",
-    ],
+    enum: ["Pro-01", "Pro-02", "Pro-03"],
   },
-  voterCount: {
+  regVoteCount: {
     type: Number,
+    required: true,
+  },
+  currentVoteCount: {
+    type: Number,
+    default: 0,
     required: true,
   },
 });

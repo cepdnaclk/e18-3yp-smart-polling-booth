@@ -1,82 +1,37 @@
 const mongoose = require("mongoose");
 const Province = require("./province");
+// const Fawn = require("fawn");
+
+// Fawn.init(mongoose);
 
 const districtSchema = new mongoose.Schema({
-  provinceID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Province",
+  districtID: {
+    type: String,
+    required: true,
+    // unique: false,
+    enum: ["D01", "D02", "D03"],
   },
   name: {
     type: String,
     required: true,
-    unique: true,
-    enum: [
-      "Matara",
-      "Galle",
-      "Hambantota",
-      "Kalutara",
-      "Colombo",
-      "Kegalle",
-      "Kandy",
-      "Matale",
-      "Anuradhapura",
-      "Polonnaruwa",
-      "Vauniya",
-      "Madakalauwa",
-      "Ampara",
-      "Gampaha",
-      "Nuwara Eliya",
-      "Jaffna",
-      "Mannar",
-      "Mulathiv",
-      "Kilinochchi",
-      "Batticaloa",
-      "Trincomalee",
-      "Kurunagala",
-      "Puttalam",
-      "Badulla",
-      "Monaragala",
-      "Rathnapura",
-    ],
+    // unique: false,
+    enum: ["D-01", "D-02", "D-03"],
   },
-  voterCount: {
+  regVoteCount: {
     type: Number,
     required: true,
   },
-  districtID: {
-    type: String,
+  currentVoteCount: {
+    type: Number,
     required: true,
-    unique: true,
-    enum: [
-      "D-01",
-      "D02",
-      "D-03",
-      "D-04",
-      "D-05",
-      "D-06",
-      "D-07",
-      "D-08",
-      "D-09",
-      "D-10",
-      "D-11",
-      "D-12",
-      "D-13",
-      "D-14",
-      "D-15",
-      "D-16",
-      "D-17",
-      "D-18",
-      "D-19",
-      "D-20",
-      "D-21",
-      "D-22",
-      "D-23",
-      "D-24",
-      "D-25",
-    ],
+    default: 0,
+  },
+  provinceID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Province",
   },
 });
 
-const Division = mongoose.model("Division", districtSchema);
+const District = mongoose.model("District", districtSchema);
 
-exports.Voter = Division;
+exports.District = District;

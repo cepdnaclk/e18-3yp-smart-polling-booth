@@ -1,5 +1,6 @@
 // const Joi = require("joi");
 const { Voter } = require("../models/voter");
+const { Division } = require("../models/division");
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
@@ -56,8 +57,10 @@ router.put("/:id", async (req, res) => {
 
   // find the relevent voter and make he as voted
   // const voter = await Voter.findOneAndUpdate(
+  const voterID = req.params.id;
+  const divisionID = req.body.division;
   const voter = await Voter.findByIdAndUpdate(
-    req.params.id,
+    voterID,
     { isVoted: true }
     // { new: true }
   );
@@ -69,6 +72,10 @@ router.put("/:id", async (req, res) => {
       .send("The voter with given NIC is not a registered voter");
 
   // if there is a voter and updated the voting status, response this.
+
+  console.log(divisionID);
+  const division = await Division.find({ _id: divisionID });
+  console.log(division);
   res.send(voter);
   console.log("Put Called");
 });

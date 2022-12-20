@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+<<<<<<< HEAD
 const cors = require("cors");
+=======
+const votes = require("./routes/votes");
+>>>>>>> e40ae3c4a354e118b149ff85f1ee2559f93e0fb6
 const voters = require("./routes/voters");
+const parties = require("./routes/parties");
 const provinces = require("./routes/provinces");
 const districts = require("./routes/districts");
+const divisions = require("./routes/divisions");
 
 mongoose
   .connect("mongodb://127.0.0.1/smart-polling-booth")
@@ -12,7 +18,6 @@ mongoose
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
 app.use(express.json());
-
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -20,9 +25,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api/votes", votes);
 app.use("/api/voters", voters);
+app.use("/api/parties", parties);
 app.use("/api/provinces", provinces);
 app.use("/api/districts", districts);
+app.use("/api/divisions", divisions);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on ${port}...`));
