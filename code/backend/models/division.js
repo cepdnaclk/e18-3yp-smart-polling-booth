@@ -1,83 +1,43 @@
 const mongoose = require("mongoose");
+const District = require("./district");
+const Province = require("./province");
+// const Fawn = require("fawn");
+// Fawn.init(mongoose);
 
 const divisionSchema = new mongoose.Schema({
   divisionID: {
     type: String,
     required: true,
     unique: true,
-    enum: [
-      "Matara",
-      "Galle",
-      "Hambantota",
-      "Kalutara",
-      "Colombo",
-      "Kegalle",
-      "Kandy",
-      "Matale",
-      "Anuradhapura",
-      "Polonnaruwa",
-      "Vauniya",
-      "Madakalauwa",
-      "Ampara",
-      "Gampaha",
-      "Nuwara Eliya",
-      "Jaffna",
-      "Mannar",
-      "Mulathiv",
-      "Kilinochchi",
-      "Batticaloa",
-      "Trincomalee",
-      "Kurunagala",
-      "Puttalam",
-      "Badulla",
-      "Monaragala",
-      "Rathnapura",
-    ],
+    enum: ["Div01", "Div02", "Div03", "Div04", "Div05"],
   },
   name: {
     type: String,
     required: true,
     unique: true,
+    enum: ["Div-01", "Div-02", "Div-03"],
   },
-  voterCount: {
+  regVoteCount: {
     type: Number,
     required: true,
   },
-  districtID: {
-    type: String,
+  currentVoteCount: {
     required: true,
-    unique: true,
-    enum: [
-      "Matara",
-      "Galle",
-      "Hambantota",
-      "Kalutara",
-      "Colombo",
-      "Kegalle",
-      "Kandy",
-      "Matale",
-      "Anuradhapura",
-      "Polonnaruwa",
-      "Vauniya",
-      "Madakalauwa",
-      "Ampara",
-      "Gampaha",
-      "Nuwara Eliya",
-      "Jaffna",
-      "Mannar",
-      "Mulathiv",
-      "Kilinochchi",
-      "Batticaloa",
-      "Trincomalee",
-      "Kurunagala",
-      "Puttalam",
-      "Badulla",
-      "Monaragala",
-      "Rathnapura",
-    ],
+    type: Number,
+    default: 0,
+  },
+  districtID: {
+    type: mongoose.Schema.Types.ObjectId,
+    unique: false,
+    ref: "District",
+  },
+  provinceID: {
+    type: mongoose.Schema.Types.ObjectId,
+    unique: false,
+    ref: "Province",
   },
 });
 
 const Division = mongoose.model("Division", divisionSchema);
 
-exports.Voter = Division;
+exports.Division = Division;

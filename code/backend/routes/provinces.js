@@ -18,7 +18,8 @@ router.post("/", async (req, res) => {
   const province = new Province({
     provinceID: req.body.provinceID,
     name: req.body.name,
-    voterCount: req.body.voterCount,
+    regVoteCount: req.body.regVoteCount,
+    currentVoteCount: req.body.currentVoteCount,
   });
 
   try {
