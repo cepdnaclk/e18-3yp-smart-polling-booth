@@ -8,10 +8,12 @@ const HANDLERS = {
   SIGN_OUT: "SIGN_OUT",
 };
 
+const nullUser = { email: "", username: "" };
+
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
-  user: null,
+  user: nullUser,
 };
 
 const handlers = {
@@ -45,7 +47,7 @@ const handlers = {
     return {
       ...state,
       isAuthenticated: false,
-      user: null,
+      user: nullUser,
     };
   },
 };
