@@ -7,6 +7,9 @@ const router = express.Router();
 
 // get all voters (done)
 router.get("/", async (req, res) => {
+  const voters = await Voter.find();
+  res.send(voters);
+  console.log(voters);
   console.log("Get Called");
 });
 

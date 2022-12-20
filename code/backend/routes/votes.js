@@ -6,18 +6,18 @@ const router = express.Router();
 
 // get all voters (done)
 router.get("/", async (req, res) => {
-  const votes = await Vote.find();
+  const votes = await Votes.find();
   console.log("Get Called");
   res.send(votes);
 });
 
-// add a voter (done)
+// add a votes (done)
 router.post("/", async (req, res) => {
   const votes = new Votes({
-    voteID: req.params.voteID,
-    party: req.params.party,
-    time: req.params.time,
-    divisionID: req.params.divisionID,
+    voteID: req.body.voteID,
+    party: req.body.party,
+    time: req.body.time,
+    divisionID: req.body.divisionID,
   });
 
   console.log(votes);
