@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-<<<<<<< HEAD
 const cors = require("cors");
-=======
 const votes = require("./routes/votes");
->>>>>>> e40ae3c4a354e118b149ff85f1ee2559f93e0fb6
 const voters = require("./routes/voters");
 const parties = require("./routes/parties");
 const provinces = require("./routes/provinces");
