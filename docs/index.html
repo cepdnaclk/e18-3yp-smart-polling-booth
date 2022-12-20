@@ -115,12 +115,8 @@ https://templatemo.com/tm-543-breezed
                     <div class="text-content">
                         <!-- <h3>Welcome To Breezed</h3> -->
                         <h5>Smart Polling booth</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos possimus eius nam tempora
-                            earum a ipsa fuga, id magni nulla dicta est, officiis dolores officia deserunt? Dolore,
-                            aspernatur mollitia possimus vero ut deleniti magni commodi consequatur qui magnam, unde
-                            ullam perfetecto ratione aliquam expedita ad dolorum veniam adipisci
-                            quis. Aspernatur, quis nobis ea ducimus veniam nesciunt perferendis veritatis perspiciatis
-                            id? Nisi.</p>
+                        <p>Wanna make your vote a smart and valid vote...The best solution is at your fingertips.</p><br>
+                        <p>Place your vote securely and lead towards a better tomorrow.</p>
                         <a href="https://github.com/cepdnaclk/e18-3yp-smart-polling-booth" target="_blank"
                             class="main-stroked-button"><i class="fa fa-github-square"></i> GitHub Repo</a>
                     </div>
@@ -490,42 +486,20 @@ https://templatemo.com/tm-543-breezed
                 <div class="explanation">
                     <img class="image"
                         src="./assets/images/technology/highLevelArchitecture/highLevelArchitecture01.png" alt="">
-                    <p>The main problem is not having proper ways to identify and verify the voters to avoid cheating.
-                        Nowadays, people are trying various ways to do cheating. Sometimes they try to attend to polling
-                        booth by changing their appearance also. So, not having a proper way to identify them uniquely
-                        should be considered more and more. </p>
+                    <p>The above diagram displays how the Component connects each other and data flow through the system. Mainly the data is generated at three points. </p>
                     <br>
-                    <p>Apart from that, it's hard to eliminate invalid votes. Due to the lack of awareness of polling,
-                        do not much care about their votes and sometimes intentionally try to make a vote invalid may
-                        cause these kinds of invalid voting scenarios. Somehow if it is possible to eliminate giving
-                        invalid votes, the voting system may be more efficient.</p>
+                    <p> They are <br>
+                        When we check the fingerprints using the Fingerprint sensor, 
+                        When we get the image from the camera for the facial recognition and When we give the vote through the Display</p>
                     <br>
-                    <p>Further, there is no efficient way to get the time-to-time analyzing process in the current
-                        voting system. Sometimes the analyzing data may be inaccurate due to miscalculations and other
-                        stuff. The necessity of a proper analyzing process has been raised here. As you are all aware,
-                        manual voting systems need a high cost for laborers and papers. </p>
+                    <p>Fingerprint and facial recognition can be verified by giving those inputs to the Raspberry Pi.
+                        Then the vote is verified through the Raspberry Pi and all the data will be sent to the database through the internet. 
+                        The relevant data will be fetched from the database via the internet. 
+                        Admins can use web applications to analyze the votes. </p>
                     <br>
-                    <span>Because of the above-mentioned difficulties, the current voting system doesn't fulfill the
-                        need for a voting system properly. <br><br>
-                        <p>To find solutions, we are introducing A Smart Polling Booth!</p>
-                    </span>
-                    <br>
-                    <p>
-                        Our Polling Booth can verify the identity of the voters using fingerprints and facial
-                        recognition.
-                        So no one let cheat through this system. Using software developments, we are making a system to
-                        eliminate invalid votes. So voters may not get a chance to make their vote invalid. Our system
-                        will
-                        only permit voters to give valid votes. There is no doubt using our system you may be able to
-                        reduce
-                        the cost going for paper and labourers. Apart from that using the software development in our
-                        system
-                        the time-to-time analysis can be done easily. Analyzing the result, and avoiding miscalculations
-                        and
-                        other stuff, may pave the way for a better voting system.
-                        <br><br>
-                        So, Make your vote smart and secure through our Smart Polling Booth.
-                    </p>
+                    
+                
+                    
                 </div>
             </div>
             <!-- high level architecure ends -->
@@ -536,42 +510,25 @@ https://templatemo.com/tm-543-breezed
                 </div>
                 <div class="explanation">
                     <img class="image" src="./assets/images/technology/dataFlow/dataFlow01.png" alt="">
-                    <p>The main problem is not having proper ways to identify and verify the voters to avoid cheating.
-                        Nowadays, people are trying various ways to do cheating. Sometimes they try to attend to polling
-                        booth by changing their appearance also. So, not having a proper way to identify them uniquely
-                        should be considered more and more. </p>
-                    <br>
-                    <p>Apart from that, it's hard to eliminate invalid votes. Due to the lack of awareness of polling,
-                        do not much care about their votes and sometimes intentionally try to make a vote invalid may
-                        cause these kinds of invalid voting scenarios. Somehow if it is possible to eliminate giving
-                        invalid votes, the voting system may be more efficient.</p>
-                    <br>
-                    <p>Further, there is no efficient way to get the time-to-time analyzing process in the current
-                        voting system. Sometimes the analyzing data may be inaccurate due to miscalculations and other
-                        stuff. The necessity of a proper analyzing process has been raised here. As you are all aware,
-                        manual voting systems need a high cost for laborers and papers. </p>
-                    <br>
-                    <span>Because of the above-mentioned difficulties, the current voting system doesn't fulfill the
-                        need for a voting system properly. <br><br>
-                        <p>To find solutions, we are introducing A Smart Polling Booth!</p>
-                    </span>
-                    <br>
-                    <p>
-                        Our Polling Booth can verify the identity of the voters using fingerprints and facial
-                        recognition.
-                        So no one let cheat through this system. Using software developments, we are making a system to
-                        eliminate invalid votes. So voters may not get a chance to make their vote invalid. Our system
-                        will
-                        only permit voters to give valid votes. There is no doubt using our system you may be able to
-                        reduce
-                        the cost going for paper and labourers. Apart from that using the software development in our
-                        system
-                        the time-to-time analysis can be done easily. Analyzing the result, and avoiding miscalculations
-                        and
-                        other stuff, may pave the way for a better voting system.
-                        <br><br>
-                        So, Make your vote smart and secure through our Smart Polling Booth.
+                    <p>After initializing the polling booth, 
+                        the relevant data of fingerprints and facial recognition will be fetched from the database to the Raspberry Pi. 
                     </p>
+                    <br>
+                    <p>When the voter gives their fingerprint and facial recognition, 
+                        these data will be stored in the Raspberry Pi memory and the sensors of fingerprints sensor. 
+                        Then these data will be checked with the data taken from the database. 
+                        If the voter is eligible to give a vote then the relevant data will be shown on the screen. 
+                        Then the vote can be given through the touch screen and the data will be directed to the Raspberry Pi. </p>
+                    <br>
+                    <p>Then using MQTT protocol these data will be saved in the server.
+                        Those data can be fetched using the server via the internet and admins can do the relevant analysis process 
+                        and the result will be displayed in the web application.  </p>
+                    <br>
+                    
+                        <p>This is how data flow within the system.</p>
+                    
+                    <br>
+                    
                 </div>
             </div>
             <!-- Data flow ends -->
@@ -587,10 +544,9 @@ https://templatemo.com/tm-543-breezed
                         <img class="image" src="./assets/images/technology/technologyStack/technologyStack02.png"
                             alt="">
                     </div>
-                    <p>The main problem is not having proper ways to identify and verify the voters to avoid cheating.
-                        Nowadays, people are trying various ways to do cheating. Sometimes they try to attend to polling
-                        booth by changing their appearance also. So, not having a proper way to identify them uniquely
-                        should be considered more and more. </p>
+                    <p> React is used for front-end development. In our system, we are designing a web application for the admins for administration purposes.
+                        So all the Data analysis parts and the relevant descriptions will be displayed through this web application.
+                    </p>
                     <br>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 all dashboard"
                         data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
@@ -598,16 +554,14 @@ https://templatemo.com/tm-543-breezed
                         <img class="image" src="./assets/images/technology/technologyStack/technologyStack03.png"
                             alt="">
                     </div>
-                    <p>Apart from that, it's hard to eliminate invalid votes. Due to the lack of awareness of polling,
-                        do not much care about their votes and sometimes intentionally try to make a vote invalid may
-                        cause these kinds of invalid voting scenarios. Somehow if it is possible to eliminate giving
-                        invalid votes, the voting system may be more efficient.</p>
+                    <p>AWS will Use only for demonstration. In the real implementation, we have to maintain the local server.
+                        <br>
+                        For the back-end development, we are using javascript and express. MongoDB will be taken as the Database. 
+                        <br>
+                        Since we are using facial recognition, to analyze that facial recognition we are using Python language.
+                    </p>
                     <br>
-                    <p>Further, there is no efficient way to get the time-to-time analyzing process in the current
-                        voting system. Sometimes the analyzing data may be inaccurate due to miscalculations and other
-                        stuff. The necessity of a proper analyzing process has been raised here. As you are all aware,
-                        manual voting systems need a high cost for laborers and papers. </p>
-                    <br>
+                    
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 all dashboard"
                         data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
 
@@ -615,25 +569,9 @@ https://templatemo.com/tm-543-breezed
                             alt="">
                     </div>
                     <br>
-                    <span>Because of the above-mentioned difficulties, the current voting system doesn't fulfill the
-                        need for a voting system properly. <br><br>
-                        <p>To find solutions, we are introducing A Smart Polling Booth!</p>
-                    </span>
+                    
                     <p>
-                        Our Polling Booth can verify the identity of the voters using fingerprints and facial
-                        recognition.
-                        So no one let cheat through this system. Using software developments, we are making a system to
-                        eliminate invalid votes. So voters may not get a chance to make their vote invalid. Our system
-                        will
-                        only permit voters to give valid votes. There is no doubt using our system you may be able to
-                        reduce
-                        the cost going for paper and labourers. Apart from that using the software development in our
-                        system
-                        the time-to-time analysis can be done easily. Analyzing the result, and avoiding miscalculations
-                        and
-                        other stuff, may pave the way for a better voting system.
-                        <br><br>
-                        So, Make your vote smart and secure through our Smart Polling Booth.
+                        For version-controlling purposes, Git will be used throughout the project. 
                     </p>
                 </div>
             </div>
