@@ -16,7 +16,6 @@ const divisionSchema = new mongoose.Schema({
     required: true,
   },
   currentVoteCount: {
-    required: true,
     type: Number,
     default: 0,
   },
@@ -24,6 +23,7 @@ const divisionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     unique: false,
     ref: "District",
+    required: true,
   },
 });
 

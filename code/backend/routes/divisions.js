@@ -9,25 +9,17 @@ const { District } = require("../models/district");
 
 // get all divisions
 router.get("/", async (req, res) => {
-  // const divisions = await Division.find().populate("districtID", "name -_id");
-  const divisions = await Division.find();
-  // .populate("districtID", "name -_id")
-  // const divisions = await Division.find()
-  // .populate("districtID")
-  // .populate("provinceID");
+  const divisions = await Division.find().populate("districtID", "name -_id");
   console.log("Get Called");
-  res.send(divisions);
+  return res.json(divisions);
 });
 
 // add a division
-router.post("/", async (req, res) => {
+router.post("/add", async (req, res) => {
   const division = new Division({
-    divisionID: req.body.divisionID,
     name: req.body.name,
     regVoteCount: req.body.regVoteCount,
-    currentVoteCount: req.body.currentVoteCount,
     districtID: req.body.districtID,
-    provinceID: req.body.provinceID,
   });
 
   console.log(division);
@@ -35,24 +27,11 @@ router.post("/", async (req, res) => {
   try {
     const newDivision = await division.save();
 
-    // new Fawn.Task()
-    //   .update(
-    //     "district",
-    //     { districtID: District.districtID },
-    //     {
-    //       $inc: { currentVoteCount: +1 },
-    //     }
-    //   )
-    //   .run();
-
-    res.send(newDivision);
-    console.log("Division created successfully");
+    return res.status(201).json({ message: "successfully added the division" });
   } catch (ex) {
     // for (field in ex.errors) console.log(ex.errors[field].message);
-    return res.status(404).send(ex);
+    return res.status(404).json({ message: "Division Cannot Be Saved" });
   }
-
-  console.log("Post a Division Called");
 });
 
 // get district
