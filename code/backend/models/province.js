@@ -1,16 +1,11 @@
 const mongoose = require("mongoose");
 
 const provinceSchema = new mongoose.Schema({
-  provinceID: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   name: {
     type: String,
     required: true,
     unique: true,
-    enum: ["Pro-01", "Pro-02", "Pro-03"],
+    enum: ["Uva", "Central", "Western", "Southern"],
   },
   regVoteCount: {
     type: Number,
@@ -19,7 +14,6 @@ const provinceSchema = new mongoose.Schema({
   currentVoteCount: {
     type: Number,
     default: 0,
-    required: true,
   },
 });
 

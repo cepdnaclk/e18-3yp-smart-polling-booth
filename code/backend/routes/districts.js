@@ -12,26 +12,20 @@ router.get("/", async (req, res) => {
 });
 
 // add a Dictrict
-router.post("/", async (req, res) => {
+router.post("/add", async (req, res) => {
   const district = new District({
-    districtID: req.body.districtID,
     name: req.body.name,
-    regVoteCount: req.body.voterCount,
-    currentVoteCount: req.body.currentVoteCount,
+    regVoteCount: req.body.regVoteCount,
     provinceID: req.body.provinceID,
   });
 
-  console.log(district);
-
   try {
-    const newProvince = await district.save();
-    res.send(newProvince);
+    const newDistrict = await district.save();
     console.log("District created successfully");
+    return res.status(201).json({ message: "successfully added the district" });
   } catch (ex) {
-    // for (field in ex.errors) console.log(ex.errors[field].message);
-    return res.status(404).send("District Cannot Be Saved");
+    return res.status(404).json({ message: "District Cannot Be Saved" });
   }
-  console.log("Post a District Called");
 });
 
 // get district

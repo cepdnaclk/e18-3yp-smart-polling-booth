@@ -11,27 +11,21 @@ router.get("/", async (req, res) => {
 });
 
 // add a province
-router.post("/", async (req, res) => {
-  // const { error } = validateVoters(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
-
+router.post("/add", async (req, res) => {
   const province = new Province({
-    provinceID: req.body.provinceID,
     name: req.body.name,
     regVoteCount: req.body.regVoteCount,
-    currentVoteCount: req.body.currentVoteCount,
+    provinceID: req.body.provinceID,
   });
 
   try {
     const newProvince = await province.save();
-    res.send(newProvince);
     console.log("province created successfully");
+    return res.status(201).json({ message: "successfully added province" });
   } catch (ex) {
     for (field in ex.errors) console.log(ex.errors[field].message);
-    return res.status(404).send("Province Cannot Be Saved");
+    return res.status(404).json({ message: "Province Cannot Be Saved" });
   }
-
-  console.log("Post a province Called");
 });
 /*----------------------------------------------------------------
 // vote by the voter

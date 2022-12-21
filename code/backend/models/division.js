@@ -5,17 +5,11 @@ const Province = require("./province");
 // Fawn.init(mongoose);
 
 const divisionSchema = new mongoose.Schema({
-  divisionID: {
-    type: String,
-    required: true,
-    unique: true,
-    enum: ["Div01", "Div02", "Div03", "Div04", "Div05"],
-  },
   name: {
     type: String,
     required: true,
     unique: true,
-    enum: ["Div-01", "Div-02", "Div-03"],
+    enum: ["Badulla", "Colombo", "Kandy", "Mathara"],
   },
   regVoteCount: {
     type: Number,
@@ -30,11 +24,6 @@ const divisionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     unique: false,
     ref: "District",
-  },
-  provinceID: {
-    type: mongoose.Schema.Types.ObjectId,
-    unique: false,
-    ref: "Province",
   },
 });
 

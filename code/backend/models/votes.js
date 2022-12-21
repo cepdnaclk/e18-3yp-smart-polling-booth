@@ -2,15 +2,9 @@ const mongoose = require("mongoose");
 const { Division } = require("./division");
 
 const votesSchema = new mongoose.Schema({
-  voteID: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   party: {
     type: String,
     required: true,
-    default: "",
   },
   time: {
     type: String,

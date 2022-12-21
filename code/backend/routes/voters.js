@@ -15,17 +15,6 @@ router.get("/", async (req, res) => {
 
 // add a voter (done)
 router.post("/", async (req, res) => {
-  // const { error } = validateVoters(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-  );
-
   const voter = new Voter({
     fname: req.body.fname,
     lname: req.body.lname,
@@ -34,23 +23,17 @@ router.post("/", async (req, res) => {
     regDate: req.body.regDate,
     fingerprintImg: req.body.fingerprintImg,
     faceRecImg: req.body.faceRecImg,
-    isVoted: req.body.isVoted,
     contactNumber: req.body.contactNumber,
   });
 
-  console.log("called");
-  return res.status(201).json({ message: "You Cannot vote" });
-
+  console.log(req.body);
   try {
     const newVoter = await voter.save();
-    res.send(newVoter);
+    return res.status(200).json(newVoter);
     console.log("voter created successfully");
   } catch (ex) {
-    // for (field in ex.errors) console.log(ex.errors[field].message);
-    return res.status(404).send("You Cannot vote");
+    return res.status(404).json({ messge: "You Cannot vote", err: ex });
   }
-
-  console.log("Post a voter Called");
 });
 
 // vote by the voter
