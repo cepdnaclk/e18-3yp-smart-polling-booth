@@ -1,6 +1,8 @@
 // const Joi = require("joi");
 const { Voter } = require("../models/voter");
 const { Division } = require("../models/division");
+const { District } = require("../models/district");
+const { Province } = require("../models/province");
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
@@ -9,7 +11,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const voters = await Voter.find();
   res.send(voters);
-  console.log(voters);
+  // console.log(voters);
   console.log("Get Called");
 });
 
@@ -43,27 +45,37 @@ router.put("/:id", async (req, res) => {
 
   // find the relevent voter and make he as voted
   // const voter = await Voter.findOneAndUpdate(
-  const voterID = req.params.id;
-  const divisionID = req.body.division;
-  const voter = await Voter.findByIdAndUpdate(
-    voterID,
-    { isVoted: true }
-    // { new: true }
-  );
+  const voter = await Voter.findById(req.params.id);
+  // voter.isVoted = true;
+  // voter.save();
 
-  //   if there is no voter
-  if (!voter)
-    return res
-      .status(400)
-      .send("The voter with given NIC is not a registered voter");
+  const divisionID = voter.division;
+  const division = await Division.findById(divisionID);
+  division.currentVoteCount = division.currentVoteCount + 1;
+  await division.save();
 
-  // if there is a voter and updated the voting status, response this.
+  const districtID = division.districtID;
+  const district = await District.findById(districtID);
+  district.currentVoteCount = district.currentVoteCount + 1;
+  await district.save();
 
-  console.log(divisionID);
-  const division = await Division.find({ _id: divisionID });
-  console.log(division);
-  res.send(voter);
-  console.log("Put Called");
+  const provinceID = district.provinceID;
+  const province = await Province.findById(provinceID);
+  province.currentVoteCount = province.currentVoteCount + 1;
+  await province.save();
+
+  res.send(divisionID);
+
+  // const voter = await Voter.findByIdAndUpdate(
+  //   req.params.id,
+  //   { isVoted: true }
+  //   // { new: true }
+  // );
+  // //   if there is no voter
+  // if (!voter)
+  //   return res
+  //     .status(400)
+  //     .send("The voter with given NIC is not a registered voter");
 });
 
 // delete a voter (by the admins) (done)
