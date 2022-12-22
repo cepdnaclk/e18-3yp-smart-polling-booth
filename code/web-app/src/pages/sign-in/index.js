@@ -188,9 +188,9 @@ const Page = () => {
                     >
                       Continue
                     </Button>
-                    <Button fullWidth size="large" sx={{ mt: 3 }} onClick={handleSkip}>
+                    {/* <Button fullWidth size="large" sx={{ mt: 3 }} onClick={handleSkip}>
                       Skip authentication
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </Box>
