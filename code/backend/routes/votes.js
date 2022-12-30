@@ -1,14 +1,11 @@
 const { Votes } = require("../models/votes");
 const { Division } = require("../models/division");
-const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 
-// get all voters (done)
 router.get("/", async (req, res) => {
   const votes = await Votes.find().populate("divisionID", "name -_id");
-  console.log("Get Called");
-  res.send(votes);
+  res.status(200).json(votes);
 });
 
 // add a votes (done)

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const { Division } = require("./division");
 
 const adminSchema = new mongoose.Schema({
   username: {
@@ -22,14 +21,14 @@ const adminSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    default: "admin",
   },
   name: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 4,
     maxlength: 255,
   },
+
   contactNumber: {
     type: Number,
     required: true,
@@ -38,11 +37,11 @@ const adminSchema = new mongoose.Schema({
   },
 });
 
-const Admin = mongoose.model("Admin", adminSchema);
+module.exports = mongoose.model("Admin", adminSchema);
 
-var validateEmail = function (email) {
-  var result = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return result.test(email);
-};
+// var validateEmail = function (email) {
+//   var result = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+//   return result.test(email);
+// };
 
-exports.Admin = Admin;
+// exports.Admin = Admin;

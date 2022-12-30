@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const { Votes } = require("./models/votes");
+const { Province } = require("./models/province");
 const votes = require("./routes/votes");
 const voters = require("./routes/voters");
 const admins = require("./routes/admins");
@@ -11,7 +13,7 @@ const districts = require("./routes/districts");
 const divisions = require("./routes/divisions");
 
 mongoose
-  .connect("mongodb://127.0.0.1/smart-polling-booth")
+  .connect("mongodb://127.0.0.1/smartPollingBooth")
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
@@ -23,13 +25,20 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/votes", votes);
-app.use("/api/voters", voters);
-app.use("/api/admins", admins);
-app.use("/api/parties", parties);
-app.use("/api/provinces", provinces);
-app.use("/api/districts", districts);
-app.use("/api/divisions", divisions);
+app.get("/", async (req, res) => {
+  const currentVoteCount = await Votes.estimatedDocumentCount();
+  console.log(currentVoteCount);
+
+  res.status(200).json({ currentVoteCount: currentVoteCount });
+});
+
+app.use("/votes", votes);
+app.use("/voters", voters);
+app.use("/admins", admins);
+app.use("/parties", parties);
+app.use("/provinces", provinces);
+app.use("/districts", districts);
+app.use("/divisions", divisions);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on ${port}...`));

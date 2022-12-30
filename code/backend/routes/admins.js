@@ -1,88 +1,165 @@
-const { Admin } = require("../models/admin");
-const { Division } = require("../models/division");
-const mongoose = require("mongoose");
+const Admin = require("../models/admin");
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+require("dotenv").config();
 
-// get all admins (done)
-router.get("/", async (req, res) => {
-  const admins = await Admin.find();
-  console.log("Get Called");
-  res.send(admins);
-});
+let refreshTokens = [];
 
-// add a admin (done)
-router.post("/", async (req, res) => {
-  const admin = new Admin({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    name: req.body.name,
-    contactNumber: req.body.contactNumber,
-  });
+/*************** post method to sign up a user to the database *****************************/
 
-  console.log(admin);
-
+router.post("/signup", async (req, res) => {
   try {
-    const newAdmin = await admin.save();
-    res.send(newAdmin);
-    console.log("New Admin created successfully");
-  } catch (ex) {
-    // for (field in ex.errors) console.log(ex.errors[field].message);
-    return res.status(404).send("You Cannot be an Admin");
-  }
+    const adminByEmail = await Admin.findOne({ email: req.body.email });
+    if (adminByEmail) {
+      return res
+        .status(200)
+        .json({ success: false, message: "This Email already in use." });
+    }
 
-  console.log("Post a New Admin Called");
-});
+    // encrypt the password - for security purposes
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-// admin logins
-router.post("/login", async (req, res) => {
-  console.log(req.body);
-
-  const adminByEmail = await Admin.findOne({ email: req.body.email });
-  if (!adminByEmail)
-    return res
-      .status(201)
-      .json({ success: false, message: "Wrong credentials!" });
-
-  try {
-    return res.status(200).json({
-      message: "succesfully authenticated",
-      user: { email: adminByEmail.email, username: adminByEmail.username },
+    const newAdmin = await Admin({
+      username: req.body.username,
+      email: req.body.email,
+      password: hashedPassword, // store the encrypted password
+      name: req.body.name,
+      contactNumber: req.body.contactNumber,
     });
-  } catch (ex) {
-    // for (field in ex.errors) console.log(ex.errors[field].message);
-    return res.status(404).send("You Cannot be an Admin");
-  }
 
-  console.log("Post a New Admin Called");
-});
-
-// delete a admin (by the admins) (done)
-router.delete("/:id", async (req, res) => {
-  try {
-    const deletingAdmin = await Admin.findByIdAndRemove(req.params.id);
-    res.send(deletingAdmin);
-    console.log(deletingAdmin);
-  } catch (ex) {
-    // for (field in ex.errors) console.log(ex.errors[field].message);
-    return res.status(404).send("The Admin with the given ID was not found");
-  }
-
-  console.log("Delete Called");
-});
-
-// get a admin (by the admin)
-router.get("/:id", async (req, res) => {
-  try {
-    const admin = await Admin.findById(req.params.id);
-    res.send(admin);
+    const admin = await newAdmin.save();
     console.log(admin);
-  } catch (err) {
-    return res.status(404).send("The voter with the given ID was not found.");
+    return res.status(200).json({
+      success: true,
+      message: "The Signup Request sent successfully.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error,
+      success: true,
+      message: "Admin cannot be entered to the system.",
+    });
   }
-  // if (!voter) res.send(voter);
-  console.log("Get one Voter Called");
+});
+
+/****************** post method to login a user *****************************/
+
+router.post("/login", async (req, res) => {
+  try {
+    if (!req.body.email || !req.body.password)
+      return res
+        .status(200)
+        .json({ success: false, message: "Please give credentials" });
+
+    // check whether the user has already signed up
+    const adminByEmail = await Admin.findOne({ email: req.body.email });
+
+    if (!adminByEmail)
+      return res
+        .status(200)
+        .json({ success: false, message: "Wrong credentials!" });
+
+    const adminByPassword = await bcrypt.compare(
+      req.body.password,
+      adminByEmail.password
+    );
+
+    if (!adminByPassword)
+      return res
+        .status(200)
+        .json({ success: false, message: "Wrong credentials!" });
+
+    // create json web token and send it with the login request
+
+    // access tokens for autherization
+    const access_token = jwt.sign(
+      {
+        email: adminByEmail.email,
+        username: adminByEmail.username,
+        name: adminByEmail.name,
+      },
+      process.env.ACCESS_SECRET,
+      { expiresIn: process.env.REFRESH_TIME }
+    );
+
+    // refresh tokens to refresh the access token when expired
+    const refresh_token = jwt.sign(
+      {
+        email: adminByEmail.email,
+        username: adminByEmail.username,
+        name: adminByEmail.name,
+      },
+      process.env.REFRESH_SECRET
+    );
+    refreshTokens.push(refresh_token); // refresh token will be expired at log out
+
+    res.status(200).json({
+      success: true,
+      user: {
+        email: adminByEmail.email,
+        username: adminByEmail.username,
+        name: adminByEmail.name,
+      },
+      access_token: access_token,
+      refresh_token: refresh_token,
+    });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+// log out
+router.post("/logout", (req, res) => {
+  const refreshToken = req.header("refresh_token");
+  if (!refreshToken)
+    return res.status(401).json({ message: "Authentication failed" });
+
+  refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+  res.status(200).json({ message: "Successfuly logged out" });
+});
+
+// re-new access token
+router.post("/token", (req, res) => {
+  console.log("New access token generating ... \n");
+
+  const refreshToken = req.header("refresh_token");
+  if (!refreshToken) {
+    console.log("No refresh token sent with the header\n");
+    return res.status(401).json({ message: "Authentication failed" });
+  }
+  console.log(
+    "this is the refresh token = " + req.header("refresh_token") + "\n"
+  );
+
+  if (!refreshTokens.includes(refreshToken)) {
+    console.log(
+      "refresh token sent with the header is not found in refreshTokens[] array\n"
+    );
+    console.log(refreshTokens);
+    return res.status(403).json({ message: "Authentication failed" });
+  }
+
+  jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, result) => {
+    if (err) return res.status(500).json({ message: "Authentication failed" });
+
+    console.log(result);
+
+    const access_token = jwt.sign(
+      {
+        email: result.email,
+        username: result.username,
+        name: result.name,
+      },
+      process.env.ACCESS_SECRET,
+      { expiresIn: process.env.REFRESH_TIME }
+    );
+
+    console.log("new access token created = " + access_token + "\n");
+    res.status(200).json({ access_token: access_token });
+  });
 });
 
 module.exports = router;
