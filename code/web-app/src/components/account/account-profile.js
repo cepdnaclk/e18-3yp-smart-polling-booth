@@ -15,11 +15,10 @@ const user = {
   country: "Sri Lanka",
   jobTitle: "Senior Developer",
   name: "Hirushi Devindi",
-  // timezone: "GTM-7",
 };
 
 export const AccountProfile = (props) => (
-  <Card sx={{ backgroundColor: "#111827" }} {...props}>
+  <Card sx={{ backgroundColor: "neutral.200" }} {...props}>
     <CardContent>
       <Box
         sx={{

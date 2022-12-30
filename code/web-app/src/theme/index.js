@@ -103,16 +103,16 @@ export const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
-          borderColor: "#2D3748",
+          borderColor: "#909090",
         },
       },
     },
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: "#111827",
+          backgroundColor: "#F3F4F6",
           ".MuiTableCell-root": {
-            color: "#EDF2F7",
+            color: "#374151",
           },
           borderBottom: "none",
           "& .MuiTableCell-root": {
@@ -146,18 +146,18 @@ export const theme = createTheme({
     action: {
       active: "#6B7280",
       focus: "rgba(55, 65, 81, 0.12)",
-      hover: "rgba(55, 65, 81, 0.5)",
+      hover: "rgba(55, 65, 81, 0.04)",
       selected: "rgba(55, 65, 81, 0.08)",
       disabledBackground: "rgba(55, 65, 81, 0.12)",
       disabled: "rgba(55, 65, 81, 0.26)",
     },
     background: {
-      default: "#0B0F19",
+      default: "#F9FAFC",
       paper: "#FFFFFF",
     },
-    divider: "#2D3748",
+    divider: "#909090",
     primary: {
-      main: "#333398",
+      main: "#5048E5",
       light: "#828DF8",
       dark: "#3832A0",
       contrastText: "#FFFFFF",
@@ -193,8 +193,8 @@ export const theme = createTheme({
       contrastText: "#FFFFFF",
     },
     text: {
-      primary: "#f5f5f5",
-      secondary: "#A1A1A1",
+      primary: "#121828",
+      secondary: "#65748B",
       disabled: "rgba(55, 65, 81, 0.48)",
     },
   },

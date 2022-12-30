@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
+import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "../icons/chart-bar";
 import { Cog as CogIcon } from "../icons/cog";
 import { ShoppingBag as ShoppingBagIcon } from "../icons/shopping-bag";
 import { User as UserIcon } from "../icons/user";
 import { Users as UsersIcon } from "../icons/users";
 import { Lock as LockIcon } from "../icons/lock";
-import { Logo } from "./logo";
 import { useAuthContext } from "../contexts/auth-context";
 import { NavItem } from "./nav-item";
 
@@ -20,7 +19,7 @@ const defaultMenu = [
     title: "Dashboard",
   },
   {
-    href: "/products",
+    href: "/divisions",
     icon: <ShoppingBagIcon fontSize="small" />,
     title: "Divisions",
   },
@@ -38,7 +37,7 @@ const adminMenu = [
     title: "Dashboard",
   },
   {
-    href: "/products",
+    href: "/divisions",
     icon: <ShoppingBagIcon fontSize="small" />,
     title: "Divisions",
   },
@@ -114,25 +113,34 @@ export const DashboardSidebar = (props) => {
           <Box sx={{ pl: 3, pt: 3 }}>
             <NextLink href="/" passHref>
               <a>
-                <Logo
+                <Avatar
+                  onClick={() => {}}
                   sx={{
-                    height: 42,
-                    width: 42,
+                    alignItems: "center",
+                    backgroundColor: "rgba(255, 255, 255, 0.04)",
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    px: 3,
+                    py: "11px",
+                    borderRadius: 1,
                   }}
-                />
+                  src="/favicon.ico"
+                ></Avatar>
               </a>
             </NextLink>
           </Box>
           <Box sx={{ px: 3, py: 1, cursor: "pointer" }}>
             <div>
               <Typography color="inherit" variant="h5">
-                Smart Polling
+                .Smart Polling
               </Typography>
             </div>
           </Box>
         </div>
         <Divider
           sx={{
+            borderColor: "#2D3748",
             my: 3,
           }}
         />
@@ -149,7 +157,7 @@ export const DashboardSidebar = (props) => {
         PaperProps={{
           sx: {
             backgroundColor: "neutral.900",
-            color: "#FFFFFF",
+            color: "#ffffff",
             width: 280,
             borderColor: "#2D3748",
           },
@@ -169,7 +177,7 @@ export const DashboardSidebar = (props) => {
       PaperProps={{
         sx: {
           backgroundColor: "neutral.900",
-          color: "#FFFFFF",
+          color: "#ffffff",
           width: 280,
           borderColor: "#2D3748",
         },

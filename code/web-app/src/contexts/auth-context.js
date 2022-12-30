@@ -25,9 +25,15 @@ const handlers = {
       ...// if payload (user) is provided, then is authenticated
       (user
         ? {
-            isAuthenticated: false,
+            isAuthenticated: true,
             isLoading: false,
-            user,
+            user: {
+              city: "Kandy",
+              country: "Sri Lanka",
+              jobTitle: "Senior Developer",
+              username: "Hirushi Devindi",
+              timezone: "GTM-7",
+            },
           }
         : {
             isLoading: false,

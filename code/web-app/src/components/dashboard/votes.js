@@ -54,7 +54,7 @@ export const Votes = (props) => {
   };
 
   return (
-    <Card sx={{ maxHeight: 600, height: "100%", backgroundColor: "#111827" }} {...props}>
+    <Card sx={{ maxHeight: 600, height: "100%", backgroundColor: "neutral.200" }} {...props}>
       <CardHeader title="Last hour progress" p={9} color="#123123" />
       <Divider />
       <CardContent>

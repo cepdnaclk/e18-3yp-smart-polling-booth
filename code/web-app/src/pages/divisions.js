@@ -8,7 +8,7 @@ import { DashboardLayout } from "../components/dashboard-layout";
 const Page = () => (
   <>
     <Head>
-      <title>Products | Material Kit</title>
+      <title>Division Analysis</title>
     </Head>
     <Box
       component="main"

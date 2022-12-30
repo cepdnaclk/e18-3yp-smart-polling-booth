@@ -3,7 +3,6 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import {
-  Avatar,
   Box,
   Card,
   Table,
@@ -63,7 +62,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   };
 
   return (
-    <Card sx={{ backgroundColor: "#111827" }} {...rest}>
+    <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
           <Table
@@ -92,9 +91,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                         display: "flex",
                       }}
                     >
-                      <Avatar src={customer.avatarUrl} sx={{ mr: 2 }}>
-                        {getInitials(customer.name)}
-                      </Avatar>
                       <Typography color="text" variant="body1">
                         {customer.name}
                       </Typography>

@@ -3,17 +3,7 @@ import NextLink from "next/link";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { useAuthContext } from "../contexts/auth-context";
-import {
-  AppBar,
-  Avatar,
-  Badge,
-  Box,
-  IconButton,
-  Toolbar,
-  Tooltip,
-  Typography,
-  Button,
-} from "@mui/material";
+import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Bell as BellIcon } from "../icons/bell";
@@ -116,7 +106,6 @@ export const DashboardNavbar = (props) => {
           width: {
             lg: "calc(100% - 280px)",
           },
-          borderBottomColor: "#2D3748",
         }}
         {...other}
       >
@@ -126,8 +115,6 @@ export const DashboardNavbar = (props) => {
             minHeight: 64,
             left: 0,
             px: 2,
-            backgroundColor: "rgb(17, 24, 39)",
-            borderColor: "#2D3748",
           }}
         >
           {menu}

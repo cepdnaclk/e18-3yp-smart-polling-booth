@@ -47,7 +47,7 @@ export const AccountProfileDetails = (props) => {
 
   return (
     <form autoComplete="off" noValidate {...props}>
-      <Card sx={{ backgroundColor: "#111827" }}>
+      <Card sx={{ backgroundColor: "neutral.200" }}>
         <CardHeader subheader="The information can be edited" title="Profile" />
         <Divider />
         <CardContent>
@@ -110,7 +110,6 @@ export const AccountProfileDetails = (props) => {
             </Grid>
           </Grid>
         </CardContent>
-        <Divider />
         <Box
           sx={{
             display: "flex",

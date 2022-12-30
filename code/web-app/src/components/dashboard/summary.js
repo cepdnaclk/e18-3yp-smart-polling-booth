@@ -9,7 +9,7 @@ export const Summary = (props) => {
       {
         data: [63, 14, 22],
         backgroundColor: ["#3F51B5", "#e53935", "#FB8C00"],
-        borderWidth: 8,
+        borderWidth: 1,
         borderColor: "#111827",
         hoverBorderColor: "#FFFFFF",
       },
@@ -49,7 +49,7 @@ export const Summary = (props) => {
   ];
 
   return (
-    <Card sx={{ height: "100%", backgroundColor: "#111827" }} {...props}>
+    <Card sx={{ height: "100%", backgroundColor: "neutral.200" }} {...props}>
       <CardHeader title="Summary of Election" />
       <Divider />
       <CardContent>

@@ -26,7 +26,7 @@ export const CandidateListToolbar = (props) => (
       <Typography sx={{ m: 1 }} variant="h4">
         Candidates
       </Typography>
-      <Box sx={{ m: 1 }}>
+      {/* <Box sx={{ m: 1 }}>
         <Button startIcon={<UploadIcon fontSize="small" />} sx={{ mr: 1 }}>
           Import
         </Button>
@@ -36,10 +36,10 @@ export const CandidateListToolbar = (props) => (
         <Button color="secondary" variant="contained">
           Add Candidates
         </Button>
-      </Box>
+      </Box> */}
     </Box>
     <Box sx={{ mt: 3 }}>
-      <Card sx={{ backgroundColor: "#111827" }}>
+      <Card>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
             <TextField

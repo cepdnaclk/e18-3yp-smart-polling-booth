@@ -16,7 +16,7 @@ export const SettingsPassword = (props) => {
 
   return (
     <form {...props}>
-      <Card sx={{ backgroundColor: "#111827" }}>
+      <Card sx={{ backgroundColor: "neutral.200" }}>
         <CardHeader subheader="Update password" title="Password" />
         <Divider />
         <CardContent>
@@ -51,7 +51,6 @@ export const SettingsPassword = (props) => {
             variant="outlined"
           />
         </CardContent>
-        <Divider />
         <Box
           sx={{
             display: "flex",
