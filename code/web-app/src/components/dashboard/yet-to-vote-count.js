@@ -14,37 +14,21 @@ export const YetToVoteCount = (props) => (
           <Typography color="textSecondary" gutterBottom variant="h5">
             Remaining
           </Typography>
-          <Typography color="textPrimary" variant="h6">
-            8,000, 000
+          <Typography color="textPrimary" variant="h5">
+            {props.totalCount - props.voteCount}
           </Typography>
         </Grid>
         <Grid item sx={{ height: 10 }}>
           <div style={{ width: "115px", paddingRight: 20 }}>
-            <CircularProgressbar value={40} text={"40%"} />
+            <CircularProgressbar
+              value={Math.round(((props.totalCount - props.voteCount) / props.totalCount) * 100)}
+              text={`${Math.round(
+                ((props.totalCount - props.voteCount) / props.totalCount) * 100
+              )}%`}
+            />
           </div>
         </Grid>
       </Grid>
-      {/* <Box
-        sx={{
-          pt: 2,
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <ArrowDownwardIcon color="error" />
-        <Typography
-          color="error"
-          sx={{
-            mr: 1,
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography color="textSecondary" variant="caption">
-          Since last month
-        </Typography>
-      </Box> */}
     </CardContent>
   </Card>
 );

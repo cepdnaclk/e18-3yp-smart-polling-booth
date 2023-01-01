@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useReducer, useRef } from "react";
 import PropTypes from "prop-types";
-import { auth, ENABLE_AUTH } from "../lib/auth";
 
 const HANDLERS = {
   INITIALIZE: "INITIALIZE",
@@ -8,17 +7,16 @@ const HANDLERS = {
   SIGN_OUT: "SIGN_OUT",
 };
 
-const nullUser = { email: "", username: "" };
-
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
-  user: nullUser,
+  user: null,
 };
 
 const handlers = {
   [HANDLERS.INITIALIZE]: (state, action) => {
     const user = action.payload;
+    console.log(user);
 
     return {
       ...state,
@@ -27,13 +25,7 @@ const handlers = {
         ? {
             isAuthenticated: true,
             isLoading: false,
-            user: {
-              city: "Kandy",
-              country: "Sri Lanka",
-              jobTitle: "Senior Developer",
-              username: "Hirushi Devindi",
-              timezone: "GTM-7",
-            },
+            user,
           }
         : {
             isLoading: false,
@@ -53,7 +45,7 @@ const handlers = {
     return {
       ...state,
       isAuthenticated: false,
-      user: nullUser,
+      user: null,
     };
   },
 };
@@ -78,37 +70,11 @@ export const AuthProvider = (props) => {
 
     initialized.current = true;
 
-    // Check if auth has been skipped
-    // From sign-in page we may have set "skip-auth" to "true"
-    const authSkipped = globalThis.sessionStorage.getItem("skip-auth") === "true";
-
-    if (authSkipped) {
-      const user = {};
-
-      dispatch({
-        type: HANDLERS.INITIALIZE,
-        payload: user,
-      });
-      return;
-    }
-
-    // Check if authentication with Zalter is enabled
-    // If not, then set user as authenticated
-    if (!ENABLE_AUTH) {
-      const user = {};
-
-      dispatch({
-        type: HANDLERS.INITIALIZE,
-        payload: user,
-      });
-      return;
-    }
-
     try {
-      // Check if user is authenticated
-      const isAuthenticated = await auth.isAuthenticated();
+      const signedIn = globalThis.sessionStorage.getItem("signIn") === "true";
+      console.log(signedIn);
 
-      if (isAuthenticated) {
+      if (signedIn) {
         // Get user from your database
         const user = {};
 

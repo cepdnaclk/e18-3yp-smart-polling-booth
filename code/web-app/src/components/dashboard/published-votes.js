@@ -10,13 +10,16 @@ export const PublishedVotes = (props) => (
           <Typography color="textSecondary" gutterBottom variant="h5">
             Voted
           </Typography>
-          <Typography color="textPrimary" variant="h6">
-            24,000, 000
+          <Typography color="textPrimary" variant="h5">
+            {props.voteCount}
           </Typography>
         </Grid>
         <Grid item>
           <div style={{ width: "115px", paddingRight: 20 }}>
-            <CircularProgressbar value={60} text={"60%"} />
+            <CircularProgressbar
+              value={Math.round((props.voteCount / props.totalCount) * 100)}
+              text={`${Math.round((props.voteCount / props.totalCount) * 100)}%`}
+            />
           </div>
         </Grid>
       </Grid>

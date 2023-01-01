@@ -2,8 +2,6 @@ import { Doughnut, Bar } from "react-chartjs-2";
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from "@mui/material";
 
 export const Summary = (props) => {
-  const theme = useTheme();
-
   const data = {
     datasets: [
       {

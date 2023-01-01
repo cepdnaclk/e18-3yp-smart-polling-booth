@@ -3,7 +3,6 @@ import Router from "next/router";
 import PropTypes from "prop-types";
 import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material";
 import { AuthContext } from "../contexts/auth-context";
-import { auth, ENABLE_AUTH } from "../lib/auth";
 
 export const AccountPopover = (props) => {
   const { anchorEl, onClose, open, ...other } = props;
@@ -12,22 +11,11 @@ export const AccountPopover = (props) => {
   const handleSignOut = async () => {
     onClose?.();
 
-    // Check if authentication with Zalter is enabled
-    // If not enabled, then redirect is not required
-    if (!ENABLE_AUTH) {
-      return;
-    }
-
-    // Check if auth has been skipped
-    // From sign-in page we may have set "skip-auth" to "true"
-    // If this has been skipped, then redirect to "sign-in" directly
-    const authSkipped = globalThis.sessionStorage.getItem("skip-auth") === "true";
+    globalThis.sessionStorage.removeItem("signIn");
 
     try {
-      // Update Auth Context state
       authContext.signOut();
 
-      // Redirect to sign-in page
       Router.push("/").catch(console.error);
     } catch (err) {
       console.error(err);
@@ -56,7 +44,7 @@ export const AccountPopover = (props) => {
       >
         <Typography variant="overline">Account</Typography>
         <Typography color="text.primary" variant="body2">
-          {authContext.user.username}
+          {authContext.user ? authContext.user.username : ""}
         </Typography>
       </Box>
       <MenuList

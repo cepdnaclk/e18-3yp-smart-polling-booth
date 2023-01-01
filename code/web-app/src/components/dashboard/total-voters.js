@@ -9,8 +9,8 @@ export const TotalVoters = (props) => (
           <Typography color="textSecondary" gutterBottom variant="h5">
             Total Voters
           </Typography>
-          <Typography color="textPrimary" variant="h6">
-            32,000, 000
+          <Typography color="textPrimary" variant="h5">
+            {props.totalCount}
           </Typography>
         </Grid>
       </Grid>

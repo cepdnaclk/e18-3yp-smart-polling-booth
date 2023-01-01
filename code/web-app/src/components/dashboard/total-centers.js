@@ -9,8 +9,8 @@ export const TotalCenters = (props) => (
           <Typography color="textSecondary" gutterBottom variant="h5">
             Total centers
           </Typography>
-          <Typography color="textPrimary" variant="h6">
-            1, 623
+          <Typography color="textPrimary" variant="h5">
+            {props.divisionCount}
           </Typography>
         </Grid>
       </Grid>

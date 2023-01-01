@@ -39,7 +39,7 @@ export const ProductListToolbar = (props) => (
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>
-      <Card sx={{ backgroundColor: "neutral.200" }}>
+      <Card>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
             <TextField

@@ -8,7 +8,7 @@ import { candidates } from "../__mocks__/candidates";
 const Page = () => (
   <>
     <Head>
-      <title>candidates | Smart Polling</title>
+      <title>Candidates</title>
     </Head>
     <Box
       component="main"

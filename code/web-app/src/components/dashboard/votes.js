@@ -4,8 +4,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 export const Votes = (props) => {
-  const theme = useTheme();
-
   const data = {
     datasets: [
       {
@@ -55,7 +53,7 @@ export const Votes = (props) => {
 
   return (
     <Card sx={{ maxHeight: 600, height: "100%", backgroundColor: "neutral.200" }} {...props}>
-      <CardHeader title="Last hour progress" p={9} color="#123123" />
+      <CardHeader title="hourly progress" p={9} color="#123123" />
       <Divider />
       <CardContent>
         <Box
@@ -67,7 +65,7 @@ export const Votes = (props) => {
           <Bar data={data} options={options} />
         </Box>
       </CardContent>
-      <Divider />
+      {/* <Divider />
       <Box
         sx={{
           display: "flex",
@@ -78,7 +76,7 @@ export const Votes = (props) => {
         <Button color="success" endIcon={<ArrowRightIcon fontSize="small" />} size="small">
           Overview
         </Button>
-      </Box>
+      </Box> */}
     </Card>
   );
 };

@@ -42,15 +42,15 @@ export const AccountProfile = (props) => (
           {`${user.city} ${user.country}`}
         </Typography>
         <Typography color="textSecondary" variant="body2">
-          {user.timezone}
+          {user.jobTitle}
         </Typography>
       </Box>
     </CardContent>
-    <Divider />
+    {/* <Divider />
     <CardActions>
       <Button color="secondary" fullWidth variant="text">
         Upload picture
       </Button>
-    </CardActions>
+    </CardActions> */}
   </Card>
 );

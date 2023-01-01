@@ -27,7 +27,7 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       // console.log(values);
       try {
-        const url = "http://localhost:4000/api/admins/login";
+        const url = "http://localhost:4000/admins/login";
         const res = await axios
           .post(url, {
             ...values,
@@ -36,11 +36,12 @@ const Page = () => {
             console.log(error.response.status);
           });
 
-        console.log(res.data.user);
-        if (res.status == 200) {
+        console.log(res.data);
+        if (res.status == 200 && res.data.success == true) {
           authContext.signIn(res.data.user);
+          globalThis.sessionStorage.setItem("signIn", "true");
           Router.push("/").catch(console.error);
-        } else if (res.status == 201) {
+        } else {
           console.log(res.data.success);
           formik.resetForm();
           helpers.setFieldError("submit", "Wrong credentials. Please Try again!");
