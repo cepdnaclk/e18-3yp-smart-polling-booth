@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
 const express = require("express");
-const app = express();
+const mongoose = require("mongoose");
+const { MongoClient } = require("mongodb");
 const cors = require("cors");
 const { Votes } = require("./models/votes");
 const { Province } = require("./models/province");
@@ -17,6 +17,11 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
+const uri = "mongodb://127.0.0.1/smartPollingBooth";
+const client = new MongoClient(uri);
+
+const app = express();
+
 app.use(express.json());
 app.use(cors());
 
@@ -26,10 +31,43 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  const currentVoteCount = await Votes.estimatedDocumentCount();
-  console.log(currentVoteCount);
+  try {
+    // get current vote count
+    const currentVoteCount = await Votes.estimatedDocumentCount();
 
-  res.status(200).json({ currentVoteCount: currentVoteCount });
+    const db = client.db("smartPollingBooth");
+    const collection_provinces = db.collection("provinces");
+
+    const TotalVoters = await collection_provinces
+      .aggregate([
+        {
+          $group: {
+            _id: null,
+            TotalVoters: { $sum: "$regVoteCount" },
+          },
+        },
+      ])
+      .toArray();
+
+    const collection_divisions = db.collection("divisions");
+
+    const TotalDivisions = await collection_divisions
+      .aggregate([
+        {
+          $group: {
+            _id: null,
+            TotalDivisions: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray();
+
+    res.status(200).json({
+      currentVoteCount: currentVoteCount,
+      TotalVoters: TotalVoters[0].TotalVoters,
+      TotalDivisions: TotalDivisions[0].TotalDivisions,
+    });
+  } catch (error) {}
 });
 
 app.use("/votes", votes);

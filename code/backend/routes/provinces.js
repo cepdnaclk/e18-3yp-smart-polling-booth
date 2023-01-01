@@ -23,7 +23,9 @@ router.post("/add", async (req, res) => {
     return res.status(201).json({ message: "successfully added province" });
   } catch (ex) {
     for (field in ex.errors) console.log(ex.errors[field].message);
-    return res.status(404).json({ message: "Province Cannot Be Saved" });
+    return res
+      .status(404)
+      .json({ message: "Province Cannot Be Saved", error: ex });
   }
 });
 /*----------------------------------------------------------------

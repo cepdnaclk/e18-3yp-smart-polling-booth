@@ -107,6 +107,7 @@ router.post("/login", async (req, res) => {
       refresh_token: refresh_token,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 });
