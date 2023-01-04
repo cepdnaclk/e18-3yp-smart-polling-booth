@@ -1,9 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { MongoClient } = require("mongodb");
 const cors = require("cors");
 const { Votes } = require("./models/votes");
 const { Province } = require("./models/province");
+const { Division } = require("./models/division");
 const votes = require("./routes/votes");
 const voters = require("./routes/voters");
 const admins = require("./routes/admins");
@@ -17,9 +17,6 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
-const uri = "mongodb://127.0.0.1/smartPollingBooth";
-const client = new MongoClient(uri);
-
 const app = express();
 
 app.use(express.json());
@@ -31,47 +28,53 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
+  var query = {};
   try {
-    console.log("called");
-    // get current vote count
-    const currentVoteCount = await Votes.estimatedDocumentCount();
+    // calculate currentvoted count
+    query.currentVoteCount = await Votes.estimatedDocumentCount();
 
-    const db = client.db("smartPollingBooth");
-    const collection_provinces = db.collection("provinces");
-
-    const TotalVoters = await collection_provinces
-      .aggregate([
+    // calculate total vote count
+    await Province.aggregate(
+      [
         {
           $group: {
             _id: null,
             TotalVoters: { $sum: "$regVoteCount" },
           },
         },
-      ])
-      .toArray();
+      ],
 
-    const collection_divisions = db.collection("divisions");
+      function (err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          query.TotalVoters = result[0].TotalVoters;
+        }
+      }
+    );
 
-    const TotalDivisions = await collection_divisions
-      .aggregate([
+    // Calculate division count
+    await Division.aggregate(
+      [
         {
           $group: {
             _id: null,
             TotalDivisions: { $sum: 1 },
           },
         },
-      ])
-      .toArray();
+      ],
 
-    const response = {
-      currentVoteCount: currentVoteCount,
-      TotalVoters: TotalVoters[0].TotalVoters,
-      TotalDivisions: TotalDivisions[0].TotalDivisions,
-    };
+      function (err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          query.TotalDivisions = result[0].TotalDivisions;
+        }
+      }
+    );
 
-    console.log(response);
-
-    res.status(200).json({ response });
+    console.log(query);
+    return res.status(200).json(query);
   } catch (error) {}
 });
 
