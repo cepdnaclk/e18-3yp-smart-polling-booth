@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
+    console.log("called");
     // get current vote count
     const currentVoteCount = await Votes.estimatedDocumentCount();
 
