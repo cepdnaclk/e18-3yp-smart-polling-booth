@@ -62,11 +62,15 @@ app.get("/", async (req, res) => {
       ])
       .toArray();
 
-    res.status(200).json({
+    const response = {
       currentVoteCount: currentVoteCount,
       TotalVoters: TotalVoters[0].TotalVoters,
       TotalDivisions: TotalDivisions[0].TotalDivisions,
-    });
+    };
+
+    console.log(response);
+
+    res.status(200).json({ response });
   } catch (error) {}
 });
 
