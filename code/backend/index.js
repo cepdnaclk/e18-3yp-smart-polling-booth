@@ -30,34 +30,47 @@ app.use((req, res, next) => {
 app.get("/", async (req, res) => {
   var query = {};
   try {
-    CSSConditionRule.log("called");
+    console.log("called");
     // calculate currentvoted count
     query.currentVoteCount = await Votes.estimatedDocumentCount();
 
-    // Calculate division count
-    await Division.aggregate(
+    await Province.aggregate(
       [
         {
           $group: {
             _id: null,
-            TotalVoters: { $um: "$regVoteCount" },
-            TotalDivisions: { $sum: 1 },
+            TotalVoters: { $sum: "$regVoteCount" },
           },
         },
       ],
+      (err, result1) => {
+        if (err) throw err;
+        console.log(result1);
+        query.TotalVoters = result1[0].TotalVoters;
 
-      function (err, result) {
-        if (err) {
-          res.send(err);
-        } else {
-          query.TotalVoters = result[0].TotalVoters;
-          query.TotalDivisions = result[0].TotalDivisions;
-        }
+        // Execute the second aggregate query
+        Division.aggregate(
+          [
+            {
+              $group: {
+                _id: null,
+                TotalDivisions: { $sum: 1 },
+              },
+            },
+          ],
+          (err, result2) => {
+            if (err) throw err;
+            console.log(result2);
+            query.TotalDivisions = result2[0].TotalDivisions;
+
+            console.log(query);
+
+            // Return the results of both queries to the client
+            res.status(200).json(query);
+          }
+        );
       }
     );
-
-    console.log(query);
-    return res.status(200).json(query);
   } catch (error) {}
 });
 
