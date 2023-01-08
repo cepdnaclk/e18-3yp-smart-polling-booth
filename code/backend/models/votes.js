@@ -6,8 +6,8 @@ const votesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  time: {
-    type: String,
+  createdAt: {
+    type: Date,
     default: Date.now(),
     required: true,
   },

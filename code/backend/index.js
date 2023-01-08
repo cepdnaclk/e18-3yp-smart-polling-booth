@@ -28,25 +28,39 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  var query = {};
   try {
-    console.log("called");
-    // calculate currentvoted count
+    var query = {};
+
     query.currentVoteCount = await Votes.estimatedDocumentCount();
 
-    await Province.aggregate(
+    const timestamp = Date.now();
+
+    console.log(timestamp);
+
+    const date = new Date(timestamp);
+
+    date.setMinutes(date.getMinutes() - 60);
+
+    await Votes.aggregate(
       [
         {
+          $match: {
+            $expr: {
+              $gt: ["$createdAt", date],
+            },
+          },
+        },
+        {
           $group: {
-            _id: null,
-            TotalVoters: { $sum: "$regVoteCount" },
+            _id: "$party",
+            count: { $sum: 1 },
           },
         },
       ],
       (err, result1) => {
         if (err) throw err;
         console.log(result1);
-        query.TotalVoters = result1[0].TotalVoters;
+        query.summary = result1;
 
         // Execute the second aggregate query
         Division.aggregate(
@@ -54,18 +68,16 @@ app.get("/", async (req, res) => {
             {
               $group: {
                 _id: null,
+                TotalVoters: { $sum: "$regVoteCount" },
                 TotalDivisions: { $sum: 1 },
               },
             },
           ],
           (err, result2) => {
             if (err) throw err;
-            console.log(result2);
+            query.TotalVoters = result2[0].TotalVoters;
             query.TotalDivisions = result2[0].TotalDivisions;
-
             console.log(query);
-
-            // Return the results of both queries to the client
             res.status(200).json(query);
           }
         );
