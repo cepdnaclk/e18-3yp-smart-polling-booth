@@ -12,7 +12,7 @@ export const Summary = (props) => {
         hoverBorderColor: "#FFFFFF",
       },
     ],
-    labels: ["Party-01", "Party-02", "Party-03"],
+    labels: [],
   };
 
   const options = {

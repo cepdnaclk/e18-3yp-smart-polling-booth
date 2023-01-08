@@ -16,7 +16,7 @@ const Page = () => {
   const [divisionCount, setDivisionCount] = useState(0);
   useEffect(() => {
     (async () => {
-      const url = "http://localhost:4000/";
+      const url = "http://54.159.129.100:4000/";
       const res = await axios.get(url).catch((error) => {
         console.log(error);
       });
