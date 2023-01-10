@@ -75,7 +75,7 @@ app.get("/", async (req, res) => {
           ],
           (err, result2) => {
             if (err) throw err;
-            query.TotalVotersnew = result2[0].TotalVoters;
+            query.TotalVoters = result2[0].TotalVoters;
             query.TotalDivisions = result2[0].TotalDivisions;
             console.log(query);
             res.status(200).json(query);
