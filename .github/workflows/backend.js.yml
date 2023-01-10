@@ -20,5 +20,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: cd /home/ec2-user/actions-runner/_work/e18-3yp-smart-polling-booth/e18-3yp-smart-polling-booth/code/backend && npm ci
-      - run: pwd
-      - run: cd /home/ec2-user/actions-runner/_work/e18-3yp-smart-polling-booth/e18-3yp-smart-polling-booth/code/backend && node index.js
+      - run: cd /home/ec2-user/actions-runner/_work/e18-3yp-smart-polling-booth/e18-3yp-smart-polling-booth/code/backend && node pm2 restart smartPoll
