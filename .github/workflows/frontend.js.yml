@@ -25,6 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: cd e18-3yp-smart-polling-booth
     - run: npm ci
     - run: npm run build --if-present
     - run: npm build
