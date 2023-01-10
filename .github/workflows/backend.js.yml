@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Dependencies
         run: cd code/backend/ && npm ci
-      - name: Build Project
       - name: Deploy to EC2
         run: |
           scp -r -i "~/.ssh/ec2_rsa" code/backend/ ec2-user@54.159.129.100:~/
