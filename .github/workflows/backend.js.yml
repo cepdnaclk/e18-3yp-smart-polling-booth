@@ -6,11 +6,10 @@ name: Backend.js CI
 on:
   push:
     paths:
-      - 'code/backend/**'
+      - "code/backend/**"
 
 jobs:
   build:
-
     runs-on: self-hosted
 
     strategy:
@@ -19,12 +18,12 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: cd e18-3yp-smart-polling-booth
-    - run: npm ci
-    - run: npm run build --if-present
+      - uses: actions/checkout@v3
+      - run: cd /home/ec2-user/backend_runner/_work/e18-3yp-smart-polling-booth/e18-3yp-smart-polling-booth/code/backend
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build --if-present
