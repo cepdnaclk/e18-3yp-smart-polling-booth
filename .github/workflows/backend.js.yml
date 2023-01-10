@@ -9,14 +9,20 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: cd code/backend/ && npm ci
-      - name: Deploy to EC2
-        run: |
-          https://github.com/cepdnaclk/e18-3yp-smart-polling-booth.git
-          ssh -i "~/.ssh/ec2_rsa" ec2-user@54.159.129.100 'cd code/backend/ && npm start'
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build --if-present
