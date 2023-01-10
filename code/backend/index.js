@@ -29,7 +29,6 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
-    console.log("HiHello");
     var query = {};
 
     query.currentVoteCount = await Votes.estimatedDocumentCount();
@@ -76,7 +75,7 @@ app.get("/", async (req, res) => {
           ],
           (err, result2) => {
             if (err) throw err;
-            query.TotalVoters = result2[0].TotalVoters;
+            query.TotalVotersnew = result2[0].TotalVoters;
             query.TotalDivisions = result2[0].TotalDivisions;
             console.log(query);
             res.status(200).json(query);
