@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
-    console.log("Hi Hello");
+    console.log("called");
     var query = {};
 
     query.currentVoteCount = await Votes.estimatedDocumentCount();
