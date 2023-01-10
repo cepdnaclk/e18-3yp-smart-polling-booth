@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: cd <subfolder> && npm ci
+        run: cd code/backend/ && npm ci
       - name: Build Project
         run: cd code/backend/ && npm run build
       - name: Deploy to EC2
