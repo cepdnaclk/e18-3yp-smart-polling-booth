@@ -33,7 +33,9 @@ app.get("/", async (req, res) => {
 
     query.currentVoteCount = await Votes.estimatedDocumentCount();
 
-    query.summary = await Votes.find({ party: 1 });
+    // const array = await Votes.find();
+
+    // console.log(array);
 
     const timestamp = Date.now();
 
@@ -62,25 +64,41 @@ app.get("/", async (req, res) => {
       (err, result1) => {
         if (err) throw err;
         console.log(result1);
-        // query.summary = result1;
+        query.hourlyVotes = result1;
 
         // Execute the second aggregate query
-        Division.aggregate(
+        Votes.aggregate(
           [
             {
               $group: {
-                _id: null,
-                TotalVoters: { $sum: "$regVoteCount" },
-                TotalDivisions: { $sum: 1 },
+                _id: "$party",
+                count: { $sum: 1 },
               },
             },
           ],
           (err, result2) => {
             if (err) throw err;
-            query.TotalVoters = result2[0].TotalVoters;
-            query.TotalDivisions = result2[0].TotalDivisions;
-            console.log(query);
-            res.status(200).json(query);
+            query.summary = result2;
+
+            // Execute the second aggregate query
+            Division.aggregate(
+              [
+                {
+                  $group: {
+                    _id: null,
+                    TotalVoters: { $sum: "$regVoteCount" },
+                    TotalDivisions: { $sum: 1 },
+                  },
+                },
+              ],
+              (err, result3) => {
+                if (err) throw err;
+                query.TotalVoters = result3[0].TotalVoters;
+                query.TotalDivisions = result3[0].TotalDivisions;
+                console.log(query);
+                res.status(200).json(query);
+              }
+            );
           }
         );
       }
