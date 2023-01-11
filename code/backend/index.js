@@ -33,6 +33,8 @@ app.get("/", async (req, res) => {
 
     query.currentVoteCount = await Votes.estimatedDocumentCount();
 
+    query.summary = await Votes.find({ party: 1 });
+
     const timestamp = Date.now();
 
     console.log(timestamp);
@@ -60,7 +62,7 @@ app.get("/", async (req, res) => {
       (err, result1) => {
         if (err) throw err;
         console.log(result1);
-        query.summary = result1;
+        // query.summary = result1;
 
         // Execute the second aggregate query
         Division.aggregate(
