@@ -14,16 +14,20 @@ const Page = () => {
   const [voteCount, setVoteCount] = useState(0);
   const [totalVoteCount, setTotalVoteCount] = useState(0);
   const [divisionCount, setDivisionCount] = useState(0);
+  const [summary, setSummary] = useState({});
   useEffect(() => {
     (async () => {
       const url = "http://54.159.129.100:4000/";
       const res = await axios.get(url).catch((error) => {
         console.log(error);
       });
-      console.log(res.data);
-      setVoteCount(res.data.currentVoteCount);
-      setTotalVoteCount(res.data.TotalVoters);
-      setDivisionCount(res.data.TotalDivisions);
+      if (res.data) {
+        console.log(res.data);
+        setVoteCount(res.data.currentVoteCount);
+        setTotalVoteCount(res.data.TotalVoters);
+        setDivisionCount(res.data.TotalDivisions);
+        setSummary(Array.from(res.data.summary));
+      }
     })();
   }, []);
 
@@ -80,7 +84,7 @@ const Page = () => {
               <Votes />
             </Grid>
             <Grid item lg={4} md={6} xl={3} xs={12}>
-              <Summary />
+              <Summary summary={summary} />
             </Grid>
           </Grid>
         </Container>

@@ -29,6 +29,10 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
+    const x = new Date();
+    const localTime = x.toLocaleString();
+    console.log(localTime);
+
     var query = {};
 
     query.currentVoteCount = await Votes.estimatedDocumentCount();
@@ -41,16 +45,21 @@ app.get("/", async (req, res) => {
 
     console.log(timestamp);
 
-    const date = new Date(timestamp);
+    const startTime = new Date(timestamp);
+    const endtTime = new Date(timestamp);
 
-    date.setMinutes(date.getMinutes() - 60);
+    startTime.setMinutes(startTime.getMinutes() - 60);
+    endtTime.setMinutes(endtTime.getMinutes() - 40);
+
+    console.log(startTime);
 
     await Votes.aggregate(
       [
         {
           $match: {
-            $expr: {
-              $gt: ["$createdAt", date],
+            createdAt: {
+              $gt: startTime,
+              $lt: endtTime,
             },
           },
         },
@@ -58,12 +67,14 @@ app.get("/", async (req, res) => {
           $group: {
             _id: "$party",
             count: { $sum: 1 },
+            timestamps: { $push: "$createdAt" },
           },
         },
       ],
       (err, result1) => {
         if (err) throw err;
-        console.log(result1);
+        console.log(typeof result1[2].timestamps);
+        console.log(new Date(result1[0].timestamps[2]).getMinutes());
         query.hourlyVotes = result1;
 
         // Execute the second aggregate query
