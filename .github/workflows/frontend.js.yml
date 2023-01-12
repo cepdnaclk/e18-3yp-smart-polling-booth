@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: cd e18-3yp-smart-polling-booth/code/web-app
+      - run: pwd
       - run: npm ci
       - run: npm run build --if-present
       - run: npm build
