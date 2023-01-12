@@ -34,7 +34,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Dashboard</title>
+        <title>Dashboard x</title>
       </Head>
       <Box
         component="main"
