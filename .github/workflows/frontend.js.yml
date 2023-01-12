@@ -5,8 +5,7 @@ name: Frontend CI
 
 on:
   push:
-    paths:
-      - "code/backend/**"
+    branches: ["main"]
 
 jobs:
   build:
