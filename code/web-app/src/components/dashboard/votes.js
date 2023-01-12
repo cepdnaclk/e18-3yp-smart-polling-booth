@@ -1,15 +1,14 @@
-import { Bar, tooltips } from "react-chartjs-2";
+import { Bar, tooltips, Line, Pie } from "react-chartjs-2";
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 export const Votes = (props) => {
   const data = {
     datasets: [
       {
         backgroundColor: "#00797C",
+        borderColor: "green",
         barPercentage: 0.5,
-        barThickness: 9,
+        barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: [18, 5, 19, 20, 20, 19, 20],
@@ -18,8 +17,9 @@ export const Votes = (props) => {
       },
       {
         backgroundColor: "#00BCC0",
+        borderColor: "red",
         barPercentage: 0.5,
-        barThickness: 9,
+        barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: [11, 20, 12, 29, 30, 25, 13],
@@ -28,8 +28,9 @@ export const Votes = (props) => {
       },
       {
         backgroundColor: "#5AFFFC",
+        borderColor: "rgb(75, 192, 192)",
         barPercentage: 0.5,
-        barThickness: 9,
+        barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: [1, 12, 4, 14, 2, 21, 13],
@@ -58,7 +59,7 @@ export const Votes = (props) => {
       <CardContent>
         <Box
           sx={{
-            height: 350,
+            height: 300,
             position: "relative",
           }}
         >

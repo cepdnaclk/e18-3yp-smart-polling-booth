@@ -1,18 +1,22 @@
 import { Doughnut, Bar } from "react-chartjs-2";
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import { array } from "prop-types";
 
 export const Summary = (props) => {
+  const [summary, setSummary] = useState({ data: [], label: [] });
   const data = {
     datasets: [
       {
-        data: [63, 14, 22],
+        data: summary.data,
         backgroundColor: ["#3F51B5", "#e53935", "#FB8C00"],
         borderWidth: 1,
+        borderRadius: 6,
         borderColor: "#111827",
         hoverBorderColor: "#FFFFFF",
       },
     ],
-    labels: [],
+    labels: summary.label,
   };
 
   const options = {
@@ -36,18 +40,33 @@ export const Summary = (props) => {
     },
     {
       title: "Party-02",
-      value: 14,
-      color: "#E53935",
+      value: 63,
+      color: "#3F6283",
     },
     {
       title: "Party-03",
-      value: 23,
-      color: "#FB8C00",
+      value: 63,
+      color: "#3F2234",
+    },
+    {
+      title: "Party-04",
+      value: 63,
+      color: "#3F1234",
     },
   ];
 
+  useEffect(() => {
+    Object.values(props.summary).forEach((item) => {
+      summary.data.push(item.count);
+      summary.label.push(item._id);
+    });
+
+    console.log(summary.data);
+    console.log(summary.label);
+  }, [props.summary]);
+
   return (
-    <Card sx={{ height: "100%", backgroundColor: "neutral.200" }} {...props}>
+    <Card sx={{ maxHeight: 600, height: "100%", backgroundColor: "neutral.200" }} {...props}>
       <CardHeader title="Summary of Election" />
       <Divider />
       <CardContent>
@@ -59,7 +78,7 @@ export const Summary = (props) => {
         >
           <Bar data={data} options={options} />
         </Box>
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -82,7 +101,7 @@ export const Summary = (props) => {
               </Typography>
             </Box>
           ))}
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );
