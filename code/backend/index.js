@@ -73,8 +73,7 @@ app.get("/", async (req, res) => {
       ],
       (err, result1) => {
         if (err) throw err;
-        console.log(typeof result1[2].timestamps);
-        console.log(new Date(result1[0].timestamps[2]).getMinutes());
+        // console.log(new Date(result1[0].timestamps[2]).getMinutes());
         query.hourlyVotes = result1;
 
         // Execute the second aggregate query
