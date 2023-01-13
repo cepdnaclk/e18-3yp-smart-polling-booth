@@ -20,4 +20,3 @@ jobs:
       - uses: actions/checkout@v3
       - run: cd code/web-app && npm ci
       - run: cd code/web-app && npm run build --if-present
-      - run: cd code/web-app && npm build
