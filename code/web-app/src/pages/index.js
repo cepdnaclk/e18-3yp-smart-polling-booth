@@ -17,7 +17,7 @@ const Page = () => {
   const [summary, setSummary] = useState({});
   useEffect(() => {
     (async () => {
-      const url = "http://54.159.129.100:4000/";
+      const url = "http://44.204.51.217:4000/";
       const res = await axios.get(url).catch((error) => {
         console.log(error);
       });
