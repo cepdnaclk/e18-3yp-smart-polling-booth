@@ -29,9 +29,9 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
-    const x = new Date();
-    const localTime = x.toLocaleString();
-    console.log(localTime);
+    // const x = new Date();
+    // const localTime = x.toLocaleString();
+    // console.log(localTime);
 
     var query = {};
 
