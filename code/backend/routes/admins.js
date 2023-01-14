@@ -96,13 +96,17 @@ router.post("/login", async (req, res) => {
     );
     refreshTokens.push(refresh_token); // refresh token will be expired at log out
 
+    const user = {
+      email: adminByEmail.email,
+      username: adminByEmail.username,
+      name: adminByEmail.name,
+    };
+
+    console.log(user);
+
     res.status(200).json({
       success: true,
-      user: {
-        email: adminByEmail.email,
-        username: adminByEmail.username,
-        name: adminByEmail.name,
-      },
+      user,
       access_token: access_token,
       refresh_token: refresh_token,
     });
