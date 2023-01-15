@@ -25,7 +25,6 @@ const Page = () => {
       password: Yup.string().min(8).required("Password is required"),
     }),
     onSubmit: async (values, helpers) => {
-      // console.log(values);
       try {
         const url = "http://3.93.242.30:4000/admins/login";
         const res = await axios
