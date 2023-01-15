@@ -29,18 +29,13 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
-    // const x = new Date();
-    // const localTime = x.toLocaleString();
-    // console.log(localTime);
+    const x = new Date();
+    const localTime = x.toLocaleString();
+    console.log(localTime);
 
     var query = {};
 
     query.currentVoteCount = await Votes.estimatedDocumentCount();
-
-    // const array = await Votes.find();
-
-    // console.log(array);
-
     const timestamp = Date.now();
 
     console.log(timestamp);
