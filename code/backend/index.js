@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 
 app.use(
   "/",
-  console.log("called proxy"),
+  console.log("calledproxy"),
   proxy({
     target: "ec2-3-82-153-22.compute-1.amazonaws.com",
     changeOrigin: true,
