@@ -27,7 +27,7 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       // console.log(values);
       try {
-        const url = "http://3.82.153.22:4000/admins/login";
+        const url = "http://3.93.242.30:4000/admins/login";
         const res = await axios
           .post(url, {
             ...values,
