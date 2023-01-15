@@ -17,18 +17,10 @@ const Page = () => {
   const [summary, setSummary] = useState({});
   useEffect(() => {
     (async () => {
-      // const url = "https://3.82.153.22:4000/";
-      const url = "https://linuxconfig.org/testing-https-client-using-openssl-to-simulate-a-server";
-      const res = await axios
-        .get(url, {
-          headers: {
-            "Access-Control-Allow-Origin":
-              "https://e18-3yp-smart-polling-booth-acslp670p-dhananjayawmt.vercel.app/",
-          },
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const url = "https://3.82.153.22:4000/";
+      const res = await axios.get(url).catch((error) => {
+        console.log(error);
+      });
 
       if (res.data) {
         console.log(res.data);
