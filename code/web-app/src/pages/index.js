@@ -18,8 +18,14 @@ const Page = () => {
   useEffect(() => {
     (async () => {
       const url = "http://3.82.153.22:4000/";
-      const res = await axios.get(url).catch((error) => {
-        console.log(error);
+      // const res = await axios.get(url).catch((error) => {
+      //   console.log(error);
+      // });
+      const res = await fetch(url, {
+        headers: {
+          "Access-Control-Allow-Origin":
+            "https://e18-3yp-smart-polling-booth-acslp670p-dhananjayawmt.vercel.app/",
+        },
       });
       if (res.data) {
         console.log(res.data);
