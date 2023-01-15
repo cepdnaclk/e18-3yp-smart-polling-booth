@@ -24,10 +24,10 @@ const Page = () => {
 
       if (res.data) {
         console.log(res.data);
-        // setVoteCount(res.data.currentVoteCount);
-        // setTotalVoteCount(res.data.TotalVoters);
-        // setDivisionCount(res.data.TotalDivisions);
-        // setSummary(Array.from(res.data.summary));
+        setVoteCount(res.data.currentVoteCount);
+        setTotalVoteCount(res.data.TotalVoters);
+        setDivisionCount(res.data.TotalDivisions);
+        setSummary(Array.from(res.data.summary));
       }
     })();
   }, []);
