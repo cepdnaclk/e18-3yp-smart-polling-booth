@@ -17,7 +17,8 @@ const Page = () => {
   const [summary, setSummary] = useState({});
   useEffect(() => {
     (async () => {
-      const url = "https://3.82.153.22:4000/";
+      // const url = "https://3.82.153.22:4000/";
+      const url = "https://linuxconfig.org/testing-https-client-using-openssl-to-simulate-a-server";
       const res = await axios
         .get(url, {
           headers: {
@@ -31,10 +32,10 @@ const Page = () => {
 
       if (res.data) {
         console.log(res.data);
-        setVoteCount(res.data.currentVoteCount);
-        setTotalVoteCount(res.data.TotalVoters);
-        setDivisionCount(res.data.TotalDivisions);
-        setSummary(Array.from(res.data.summary));
+        // setVoteCount(res.data.currentVoteCount);
+        // setTotalVoteCount(res.data.TotalVoters);
+        // setDivisionCount(res.data.TotalDivisions);
+        // setSummary(Array.from(res.data.summary));
       }
     })();
   }, []);
