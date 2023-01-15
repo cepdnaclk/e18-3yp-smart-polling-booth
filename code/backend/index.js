@@ -11,7 +11,6 @@ const parties = require("./routes/parties");
 const provinces = require("./routes/provinces");
 const districts = require("./routes/districts");
 const divisions = require("./routes/divisions");
-const proxy = require("http-proxy-middleware");
 
 mongoose
   .connect("mongodb://127.0.0.1/smartPollingBooth")
@@ -27,21 +26,6 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   next();
 });
-
-app.use(
-  "/",
-  console.log("calledproxy"),
-  proxy({
-    target: "ec2-3-82-153-22.compute-1.amazonaws.com",
-    changeOrigin: true,
-    onProxyReq: (proxyReq) => {
-      proxyReq.setHeader(
-        "Access-Control-Allow-Origin",
-        "https://e18-3yp-smart-polling-booth-acslp670p-dhananjayawmt.vercel.app/"
-      );
-    },
-  })
-);
 
 app.get("/", async (req, res) => {
   try {

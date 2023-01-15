@@ -17,7 +17,7 @@ const Page = () => {
   const [summary, setSummary] = useState({});
   useEffect(() => {
     (async () => {
-      const url = "http://3.82.153.22:4000/";
+      const url = "https://3.82.153.22:4000/";
       const res = await axios
         .get(url, {
           headers: {
