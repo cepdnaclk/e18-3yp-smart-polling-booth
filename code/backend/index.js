@@ -32,7 +32,6 @@ app.get("/", async (req, res) => {
     // const x = new Date();
     // const localTime = x.toLocaleString();
     // console.log(localTime);
-    console.log("called");
 
     var query = {};
 
