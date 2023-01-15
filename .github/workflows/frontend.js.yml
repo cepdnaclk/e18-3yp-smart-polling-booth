@@ -22,3 +22,4 @@ jobs:
       - run: cd code/web-app && npm ci
       - run: cd code/web-app && npm run build
       - run: cd code/web-app && pm2 restart next
+      - run: cd code/backend && npm ci
