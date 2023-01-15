@@ -9,25 +9,23 @@ import { YetToVoteCount } from "../components/dashboard/yet-to-vote-count";
 import { TotalVoters } from "../components/dashboard/total-voters";
 import { Summary } from "../components/dashboard/summary";
 import { DashboardLayout } from "../components/dashboard-layout";
+import client from "../api/client";
 
 const Page = () => {
   const [voteCount, setVoteCount] = useState(0);
   const [totalVoteCount, setTotalVoteCount] = useState(0);
   const [divisionCount, setDivisionCount] = useState(0);
-  const [summary, setSummary] = useState({});
   useEffect(() => {
     (async () => {
-      const url = "http://3.93.242.30:4000/";
-      const res = await axios.get(url).catch((error) => {
+      const res = await client.get("/").catch((error) => {
         console.log(error);
       });
 
       if (res.data) {
-        console.log(res.data);
+        // console.log(res.data);
         setVoteCount(res.data.currentVoteCount);
         setTotalVoteCount(res.data.TotalVoters);
         setDivisionCount(res.data.TotalDivisions);
-        setSummary(Array.from(res.data.summary));
       }
     })();
   }, []);
@@ -85,7 +83,7 @@ const Page = () => {
               <Votes />
             </Grid>
             <Grid item lg={4} md={6} xl={3} xs={12}>
-              <Summary summary={summary} />
+              <Summary />
             </Grid>
           </Grid>
         </Container>

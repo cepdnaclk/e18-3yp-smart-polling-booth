@@ -29,83 +29,25 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
-    const x = new Date();
-    const localTime = x.toLocaleString();
-    console.log(localTime);
-
     var query = {};
-
     query.currentVoteCount = await Votes.estimatedDocumentCount();
-    const timestamp = Date.now();
 
-    console.log(timestamp);
-
-    const startTime = new Date(timestamp);
-    const endtTime = new Date(timestamp);
-
-    startTime.setMinutes(startTime.getMinutes() - 60);
-    endtTime.setMinutes(endtTime.getMinutes() - 40);
-
-    console.log(startTime);
-
-    await Votes.aggregate(
+    Division.aggregate(
       [
         {
-          $match: {
-            createdAt: {
-              $gt: startTime,
-              $lt: endtTime,
-            },
-          },
-        },
-        {
           $group: {
-            _id: "$party",
-            count: { $sum: 1 },
-            timestamps: { $push: "$createdAt" },
+            _id: null,
+            TotalVoters: { $sum: "$regVoteCount" },
+            TotalDivisions: { $sum: 1 },
           },
         },
       ],
-      (err, result1) => {
+      (err, result) => {
         if (err) throw err;
-        // console.log(new Date(result1[0].timestamps[2]).getMinutes());
-        query.hourlyVotes = result1;
-
-        // Execute the second aggregate query
-        Votes.aggregate(
-          [
-            {
-              $group: {
-                _id: "$party",
-                count: { $sum: 1 },
-              },
-            },
-          ],
-          (err, result2) => {
-            if (err) throw err;
-            query.summary = result2;
-
-            // Execute the second aggregate query
-            Division.aggregate(
-              [
-                {
-                  $group: {
-                    _id: null,
-                    TotalVoters: { $sum: "$regVoteCount" },
-                    TotalDivisions: { $sum: 1 },
-                  },
-                },
-              ],
-              (err, result3) => {
-                if (err) throw err;
-                query.TotalVoters = result3[0].TotalVoters;
-                query.TotalDivisions = result3[0].TotalDivisions;
-                console.log(query);
-                res.status(200).json(query);
-              }
-            );
-          }
-        );
+        query.TotalVoters = result[0].TotalVoters;
+        query.TotalDivisions = result[0].TotalDivisions;
+        console.log(query);
+        res.status(200).json(query);
       }
     );
   } catch (error) {}
