@@ -1,7 +1,7 @@
 import { Doughnut, Bar } from "react-chartjs-2";
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { array } from "prop-types";
+import client from "../../api/client";
 
 export const Summary = (props) => {
   const [summary, setSummary] = useState({ data: [], label: [] });
@@ -55,15 +55,28 @@ export const Summary = (props) => {
     },
   ];
 
-  useEffect(() => {
-    Object.values(props.summary).forEach((item) => {
-      summary.data.push(item.count);
-      summary.label.push(item._id);
+  const getSummary = async () => {
+    const res = await client.get("votes/summary").catch((error) => {
+      console.log(error);
     });
+    if (res.data.summary) {
+      console.log("start");
+      console.log(Array.from(res.data.summary));
 
-    console.log(summary.data);
-    console.log(summary.label);
-  }, [props.summary]);
+      summary.data = [];
+      summary.label = [];
+
+      Object.values(Array.from(res.data.summary)).forEach((item) => {
+        console.log(item);
+        summary.data.push(item.count);
+        summary.label.push(item._id);
+      });
+    }
+  };
+
+  useEffect(() => {
+    getSummary();
+  }, []);
 
   return (
     <Card sx={{ maxHeight: 600, height: "100%", backgroundColor: "neutral.200" }} {...props}>

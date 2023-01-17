@@ -42,7 +42,7 @@ router.put("/:id", async (req, res) => {
   // const voter = await Voter.findOneAndUpdate(
   const voterID = req.params.id;
   const divisionID = req.body.division;
-  const voter = await Vote.findByIdAndUpdate(
+  const voter = await Votes.findByIdAndUpdate(
     voterID,
     { isVoted: true }
     // { new: true }
@@ -78,16 +78,156 @@ router.delete("/:id", async (req, res) => {
 });
 
 // get a voter (by the admin)
-router.get("/:id", async (req, res) => {
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const voter = await Vote.findById(req.params.id);
+//     res.send(voter);
+//     console.log(voter);
+//   } catch (err) {
+//     return res.status(404).send("The voter with the given ID was not found.");
+//   }
+//   // if (!voter) res.send(voter);
+//   console.log("Get one Voter Called");
+// });
+
+router.get("/summary", async (req, res) => {
   try {
-    const voter = await Vote.findById(req.params.id);
-    res.send(voter);
-    console.log(voter);
-  } catch (err) {
-    return res.status(404).send("The voter with the given ID was not found.");
-  }
-  // if (!voter) res.send(voter);
-  console.log("Get one Voter Called");
+    var query = {};
+
+    await Votes.aggregate(
+      [
+        {
+          $group: {
+            _id: "$party",
+            count: { $sum: 1 },
+          },
+        },
+        { $limit: 6 },
+      ],
+      (err, result) => {
+        if (err) throw err;
+        // console.log(new Date(result1[0].timestamps[2]).getMinutes());
+        query.summary = result;
+        console.log(query);
+        res.status(200).json(query);
+      }
+    );
+  } catch (error) {}
+});
+
+router.get("/hourly-summary", (req, res) => {
+  var query = { startTimes: [] };
+
+  // get timesatamps for calculation
+  const timestamp = Date.now();
+
+  // set start and end time for 1st calculation
+  var startTime = new Date(timestamp);
+  var endtTime = new Date(timestamp);
+
+  console.log(Math.round(startTime.getMinutes() / 10) * 10);
+
+  startTime.setMinutes(Math.floor(startTime.getMinutes() / 10) * 10 - 60);
+  endtTime.setMinutes(Math.floor(startTime.getMinutes() / 10) * 10 - 50);
+
+  // console.log(startTime.toLocaleString());
+  // console.log(endtTime.toLocaleString());
+
+  console.log("start run promses");
+
+  let data = [1, 2, 3, 4, 5, 6, 7];
+
+  // Use a promise loop to perform the operation
+  let promise = Promise.resolve();
+  data.forEach((value) => {
+    promise = promise.then(() => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          // result += value;
+
+          startTime.setMinutes(startTime.getMinutes() + 10);
+          endtTime.setMinutes(endtTime.getMinutes() + 10);
+
+          console.log(startTime);
+          // console.log("y", endtTime);
+
+          Votes.aggregate(
+            [
+              {
+                $match: {
+                  createdAt: {
+                    $gt: startTime,
+                    $lt: endtTime,
+                  },
+                },
+              },
+              {
+                $group: {
+                  _id: "$party",
+                  count: { $sum: 1 },
+                },
+              },
+              { $limit: 3 },
+            ],
+            (err, result) => {
+              if (err) throw err;
+
+              // console.log(result);
+              query.startTimes.push(startTime.toLocaleTimeString());
+              query[value] = result;
+            }
+          );
+          resolve();
+        }, 1000);
+      });
+    });
+  });
+  promise.then(() => {
+    // Send the result to the client
+    // console.log(query);
+    res.status(200).json(query);
+  });
+});
+
+router.get("/temp", async (req, res) => {
+  try {
+    var query = {};
+    console.log("called");
+
+    Votes.aggregate(
+      [
+        {
+          $group: {
+            _id: {
+              $bucket: {
+                groupBy: "$createdAt",
+                boundaries: [
+                  ISODate("2023-01-15T18:20:12.506Z"),
+                  ISODate("2023-01-15T18:30:12.506Z"),
+                  ISODate("2023-01-15T18:40:12.506Z"),
+                  ISODate("2023-01-15T18:50:12.506Z"),
+                  ISODate("2023-01-15T19:00:12.506Z"),
+                  ISODate("2023-01-15T19:10:12.506Z"),
+                  ISODate("2023-01-15T19:20:12.506Z"),
+                ],
+                // default: "Other",
+                // output: {
+                //   count: { $sum: 1 },
+                // },
+              },
+            },
+          },
+        },
+      ],
+      (err, result) => {
+        if (err) throw err;
+        // query.TotalVoters = result[0].TotalVoters;
+        // query.TotalDivisions = result[0].TotalDivisions;
+        console.log(result);
+        // res.status(200).json(query);
+      }
+    );
+  } catch (error) {}
 });
 
 module.exports = router;
