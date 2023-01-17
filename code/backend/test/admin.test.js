@@ -12,6 +12,7 @@ describe("Admin Model", () => {
     expect(username.isRequired).to.be.true;
     done();
   });
+  
 
   it("should have an email field of type String and required", (done) => {
     const email = Admin.schema.path("email");
@@ -45,3 +46,4 @@ describe("Admin Model", () => {
     done();
   });
 });
+
