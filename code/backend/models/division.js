@@ -19,6 +19,10 @@ const divisionSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  publicKeyPath: {
+    type: String,
+    unique: true,
+  },
   districtID: {
     type: mongoose.Schema.Types.ObjectId,
     unique: false,

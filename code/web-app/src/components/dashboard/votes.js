@@ -1,5 +1,7 @@
 import { Bar, tooltips, Line, Pie } from "react-chartjs-2";
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import client from "../../api/client";
 
 export const Votes = (props) => {
   const data = {
@@ -51,6 +53,19 @@ export const Votes = (props) => {
       },
     },
   };
+
+  const getHourlyProgress = async () => {
+    const res = await client.get("votes/hourly-summary").catch((error) => {
+      console.log(error);
+    });
+    if (res.data) {
+      console.log(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getHourlyProgress();
+  }, []);
 
   return (
     <Card sx={{ maxHeight: 600, height: "100%", backgroundColor: "neutral.200" }} {...props}>

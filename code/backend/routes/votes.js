@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
 
 // add a votes (done)
 router.post("/add", async (req, res) => {
+  console.log(req.headers);
   const division = await Division.findById(req.body.divisionID);
   console.log(division);
 
