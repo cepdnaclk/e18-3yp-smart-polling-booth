@@ -11,7 +11,7 @@ voters = [
         "fname" : "Dhananjaya",
         "nic" : "123123125V",
         "divisionID" : "_id:123456780",
-        "fingerprint" : "003-_id:123456780",
+        "fingerprint" : "002-_id:123456780",
         "faceImg" : "002-_id:123456780"
     }
 ]
