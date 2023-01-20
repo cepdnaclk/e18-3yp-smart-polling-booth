@@ -58,9 +58,11 @@ export const Votes = (props) => {
     const res = await client.get("votes/hourly-summary").catch((error) => {
       console.log(error);
     });
-    if (res.data) {
-      console.log(res.data);
-    }
+    try {
+      if (res.data) {
+        // console.log(res.data);
+      }
+    } catch {}
   };
 
   useEffect(() => {

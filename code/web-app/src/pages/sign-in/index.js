@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
-import axios from "axios";
-import useSWR from "swr";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Box, Button, FormHelperText, Grid, Divider, TextField, Typography } from "@mui/material";
@@ -25,9 +23,10 @@ const Page = () => {
       email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
       password: Yup.string().min(8).required("Password is required"),
     }),
+
     onSubmit: async (values, helpers) => {
       try {
-        const url = "http://3.93.242.30:4000/admins/login";
+        const url = "/admins/login";
         const res = await client
           .post(url, {
             ...values,

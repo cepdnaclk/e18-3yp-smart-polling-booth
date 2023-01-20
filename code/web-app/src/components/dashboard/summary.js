@@ -57,21 +57,22 @@ export const Summary = (props) => {
 
   const getSummary = async () => {
     const res = await client.get("votes/summary").catch((error) => {
-      console.log(error);
+      // console.log(error);
     });
-    if (res.data.summary) {
-      console.log("start");
-      console.log(Array.from(res.data.summary));
+    try {
+      if (res.data.summary) {
+        // console.log("start");
+        // console.log(Array.from(res.data.summary));
 
-      summary.data = [];
-      summary.label = [];
+        summary.data = [];
+        summary.label = [];
 
-      Object.values(Array.from(res.data.summary)).forEach((item) => {
-        console.log(item);
-        summary.data.push(item.count);
-        summary.label.push(item._id);
-      });
-    }
+        Object.values(Array.from(res.data.summary)).forEach((item) => {
+          summary.data.push(item.count);
+          summary.label.push(item._id);
+        });
+      }
+    } catch {}
   };
 
   useEffect(() => {

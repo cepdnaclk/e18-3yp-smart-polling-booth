@@ -12,8 +12,8 @@ async function getToken(key) {
 }
 
 const axiosInstance = axios.create({
-  //   baseURL: "http://localhost:4000/",
-  baseURL: "http://3.93.242.30:4000/",
+  baseURL: "http://localhost:4000/",
+  // baseURL: "http://3.93.242.30:4000/",
   headers,
 });
 

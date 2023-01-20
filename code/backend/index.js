@@ -16,6 +16,8 @@ const encrypt = require("./middlewares/encrrypt");
 const decrypt = require("./middlewares/decrypt");
 const generateRsaPair = require("./middlewares/generator");
 
+generateRsaPair();
+
 mongoose
   .connect("mongodb://127.0.0.1/smartPollingBooth")
   .then(() => console.log("Connected to MongoDB"))
@@ -24,7 +26,7 @@ mongoose
 const app = express();
 
 app.use(express.json());
-// app.use(bodyParser.raw({ type: "application/octet-stream" }));
+app.use(bodyParser.raw({ type: "application/octet-stream" }));
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -35,7 +37,6 @@ app.use((req, res, next) => {
 app.get("/", async (req, res) => {
   try {
     var query = {};
-    query.currentVoteCount = await Votes.estimatedDocumentCount();
 
     Division.aggregate(
       [
@@ -82,8 +83,6 @@ app.use("/parties", parties);
 app.use("/provinces", provinces);
 app.use("/districts", districts);
 app.use("/divisions", divisions);
-
-generateRsaPair();
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on ${port}...`));

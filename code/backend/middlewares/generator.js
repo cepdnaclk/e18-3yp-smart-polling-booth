@@ -9,6 +9,7 @@ const publicPath = "./middlewares/keys/serverKeys/public.pem";
 const privatePath = "./middlewares/keys/serverKeys/private.pem";
 
 const generateRsaPair = () => {
+  console.log("hello - 1");
   // make Directoreis
   if (!fs.existsSync(keyDir)) {
     fs.mkdirSync(keyDir);
@@ -16,6 +17,8 @@ const generateRsaPair = () => {
   if (!fs.existsSync(divisionPublicKeysdir)) {
     fs.mkdirSync(divisionPublicKeysdir);
   }
+
+  console.log("hello - 2");
 
   // Generate RSA key pair
   const serverPrivateKey = crypto.generateKeyPairSync("rsa", {

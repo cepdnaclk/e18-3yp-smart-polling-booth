@@ -3,14 +3,20 @@ const { Division } = require("../models/division");
 const express = require("express");
 const router = express.Router();
 
+// Get all votes
 router.get("/", async (req, res) => {
   const votes = await Votes.find().populate("divisionID", "name -_id");
   res.status(200).json(votes);
 });
 
+// get current votes count
+router.get("/currentVotes", async (req, res) => {
+  const currentVoteCount = await Votes.estimatedDocumentCount();
+  res.status(200).json({ currentVoteCount: currentVoteCount });
+});
+
 // add a votes (done)
 router.post("/add", async (req, res) => {
-  console.log(req.headers);
   const division = await Division.findById(req.body.divisionID);
   console.log(division);
 
@@ -30,8 +36,33 @@ router.post("/add", async (req, res) => {
     // for (field in ex.errors) console.log(ex.errors[field].message);
     return res.status(404).send("You Cannot vote");
   }
+});
 
-  console.log("Post a voter Called");
+// add a votes (done)
+router.post("/addwithEncrypt", async (req, res) => {
+  const decrypt_msg = decrypt(req.body);
+  console.log(decrypt_msg);
+
+  return decrypt_msg;
+  // const division = await Division.findById(req.body.divisionID);
+  // console.log(division);
+
+  // if (!division) {
+  //   return res.status(404).json({ message: "Invalid division" });
+  // }
+
+  // const votes = new Votes({
+  //   party: req.body.party,
+  //   divisionID: req.body.divisionID,
+  // });
+
+  // try {
+  //   const newVote = await votes.save();
+  //   return res.status(201).json({ message: "successfully recorded your vote" });
+  // } catch (ex) {
+  //   // for (field in ex.errors) console.log(ex.errors[field].message);
+  //   return res.status(404).send("You Cannot vote");
+  // }
 });
 
 // vote by the voter
@@ -190,45 +221,45 @@ router.get("/hourly-summary", (req, res) => {
   });
 });
 
-router.get("/temp", async (req, res) => {
-  try {
-    var query = {};
-    console.log("called");
+// router.get("/temp", async (req, res) => {
+//   try {
+//     var query = {};
+//     console.log("called");
 
-    Votes.aggregate(
-      [
-        {
-          $group: {
-            _id: {
-              $bucket: {
-                groupBy: "$createdAt",
-                boundaries: [
-                  ISODate("2023-01-15T18:20:12.506Z"),
-                  ISODate("2023-01-15T18:30:12.506Z"),
-                  ISODate("2023-01-15T18:40:12.506Z"),
-                  ISODate("2023-01-15T18:50:12.506Z"),
-                  ISODate("2023-01-15T19:00:12.506Z"),
-                  ISODate("2023-01-15T19:10:12.506Z"),
-                  ISODate("2023-01-15T19:20:12.506Z"),
-                ],
-                // default: "Other",
-                // output: {
-                //   count: { $sum: 1 },
-                // },
-              },
-            },
-          },
-        },
-      ],
-      (err, result) => {
-        if (err) throw err;
-        // query.TotalVoters = result[0].TotalVoters;
-        // query.TotalDivisions = result[0].TotalDivisions;
-        console.log(result);
-        // res.status(200).json(query);
-      }
-    );
-  } catch (error) {}
-});
+//     Votes.aggregate(
+//       [
+//         {
+//           $group: {
+//             _id: {
+//               $bucket: {
+//                 groupBy: "$createdAt",
+//                 boundaries: [
+//                   ISODate("2023-01-15T18:20:12.506Z"),
+//                   ISODate("2023-01-15T18:30:12.506Z"),
+//                   ISODate("2023-01-15T18:40:12.506Z"),
+//                   ISODate("2023-01-15T18:50:12.506Z"),
+//                   ISODate("2023-01-15T19:00:12.506Z"),
+//                   ISODate("2023-01-15T19:10:12.506Z"),
+//                   ISODate("2023-01-15T19:20:12.506Z"),
+//                 ],
+//                 // default: "Other",
+//                 // output: {
+//                 //   count: { $sum: 1 },
+//                 // },
+//               },
+//             },
+//           },
+//         },
+//       ],
+//       (err, result) => {
+//         if (err) throw err;
+//         // query.TotalVoters = result[0].TotalVoters;
+//         // query.TotalDivisions = result[0].TotalDivisions;
+//         console.log(result);
+//         // res.status(200).json(query);
+//       }
+//     );
+//   } catch (error) {}
+// });
 
 module.exports = router;
