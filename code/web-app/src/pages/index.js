@@ -36,8 +36,8 @@ const Page = () => {
     })();
   }, []);
 
-  // const url = "http://3.93.242.30:4000/votes/currentVotes";
-  const url = "http://localhost:4000/votes/currentVotes";
+  const url = "http://3.93.242.30:4000/votes/currentVotes";
+  // const url = "http://localhost:4000/votes/currentVotes";
 
   const { data, error } = useSWR(url, customFetch, {
     refreshInterval: 1000,
