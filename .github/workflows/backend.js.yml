@@ -22,5 +22,5 @@ jobs:
       - run: cp -R code/backend /home/ec2-user/deployments
       - run: cd /home/ec2-user/deployments/backend && npm ci
       - name: Try starting the app with PM2
-        run: |
+        run: cd /home/ec2-user/deployments/backend && |
           pm2 list | grep smartPoll || pm2 start index.js --name "smartPoll" --watch
