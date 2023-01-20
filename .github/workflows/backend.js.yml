@@ -20,8 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: cp -R code/backend /home/ec2-user/deployments
-      - run: cd /home/ec2-user/deployments/backends && npm ci
-      - run: cd code/backend && pm2 restart smartPoll
+      - run: cd /home/ec2-user/deployments/backend && npm ci
       - name: Try starting the app with PM2
         run: |
           pm2 list | grep smartPoll || pm2 start index.js --name "smartPoll" --watch
