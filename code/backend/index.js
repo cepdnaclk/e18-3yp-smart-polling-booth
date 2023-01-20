@@ -24,7 +24,7 @@ mongoose
 const app = express();
 
 app.use(express.json());
-// app.use(bodyParser.raw({ type: "application/octet-stream" }));
+app.use(bodyParser.raw({ type: "application/octet-stream" }));
 app.use(cors());
 
 app.use((req, res, next) => {
