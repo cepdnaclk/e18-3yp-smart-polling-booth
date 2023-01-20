@@ -3,16 +3,21 @@ const fs = require("fs");
 
 const keyDir = "./middlewares/keys";
 
-if (!fs.existsSync(keyDir)) {
-  fs.mkdirSync(keyDir);
-}
+const divisionPublicKeysdir = "./middlewares/keys/divisionPublicKeys/";
 
 const publicPath = "./middlewares/keys/serverKeys/public.pem";
 const privatePath = "./middlewares/keys/serverKeys/private.pem";
 
 const generateRsaPair = () => {
-  // Generate RSA key pair
+  // make Directoreis
+  if (!fs.existsSync(keyDir)) {
+    fs.mkdirSync(keyDir);
+  }
+  if (!fs.existsSync(divisionPublicKeysdir)) {
+    fs.mkdirSync(divisionPublicKeysdir);
+  }
 
+  // Generate RSA key pair
   const serverPrivateKey = crypto.generateKeyPairSync("rsa", {
     modulusLength: 4096,
     publicExponent: 65537,
