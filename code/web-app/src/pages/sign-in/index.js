@@ -9,6 +9,7 @@ import { Box, Button, FormHelperText, Grid, Divider, TextField, Typography } fro
 import { Logo } from "../../components/logo";
 import { useAuthContext } from "../../contexts/auth-context";
 import Router from "next/router";
+import client from "../../api/client";
 
 const Page = () => {
   const [emailSent, setEmailSent] = useState("");
@@ -27,7 +28,7 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       try {
         const url = "http://3.93.242.30:4000/admins/login";
-        const res = await axios
+        const res = await client
           .post(url, {
             ...values,
           })
