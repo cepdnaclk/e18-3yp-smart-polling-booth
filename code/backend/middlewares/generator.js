@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const fs = require("fs");
 
-const keyDir = "./middlewares/keys";
+const keyDir = "./middlewares/keys/serverKeys";
 
 const divisionPublicKeysdir = "./middlewares/keys/divisionPublicKeys/";
 
