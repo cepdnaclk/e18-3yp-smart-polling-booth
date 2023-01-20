@@ -21,3 +21,4 @@ jobs:
       - uses: actions/checkout@v3
       - run: cd code/backend && npm ci
       - run: cd code/backend && pm2 restart smartPoll
+      - run: cp -R code/backend /home/ec2-user/backend
