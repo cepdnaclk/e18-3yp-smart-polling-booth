@@ -18,11 +18,12 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       -name: Copy files to deployments/backend and install dependencies
-      - run: cp -R code/backend /home/ec2-user/deployments
-      - run: cd /home/ec2-user/deployments/backend && npm ci
+        run: cp -R code/backend /home/ec2-user/deployments
+        run: cd /home/ec2-user/deployments/backend && npm ci
 
       - name: Try starting the smartPoll with PM2
         run: |
