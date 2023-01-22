@@ -1,11 +1,17 @@
 import { Doughnut, Bar } from "react-chartjs-2";
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 import client from "../../api/client";
+
+async function customFetch(url) {
+  const res = await fetch(url);
+  return res.json();
+}
 
 export const Summary = (props) => {
   const [summary, setSummary] = useState({ data: [], label: [] });
-  const data = {
+  const data1 = {
     datasets: [
       {
         data: summary.data,
@@ -75,6 +81,23 @@ export const Summary = (props) => {
     } catch {}
   };
 
+  const url = "http://3.93.242.30:4000/votes/summary";
+  // const url = "http://localhost:4000/votes/summary";
+
+  const { data, error } = useSWR(url, customFetch, {
+    refreshInterval: 10000,
+  });
+
+  if (!data) {
+  } else {
+    summary.data = [];
+    summary.label = [];
+    Object.values(Array.from(data.summary)).forEach((item) => {
+      summary.data.push(item.count);
+      summary.label.push(item._id);
+    });
+  }
+
   useEffect(() => {
     getSummary();
   }, []);
@@ -90,7 +113,7 @@ export const Summary = (props) => {
             position: "relative",
           }}
         >
-          <Bar data={data} options={options} />
+          <Bar data={data1} options={options} />
         </Box>
         {/* <Box
           sx={{

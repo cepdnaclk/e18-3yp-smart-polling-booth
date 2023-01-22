@@ -43,7 +43,7 @@ const Page = () => {
     refreshInterval: 1000,
   });
 
-  console.log("useSWR", data);
+  // console.log("useSWR", data);
 
   return (
     <>
