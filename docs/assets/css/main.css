@@ -108,7 +108,7 @@ ul {
 }
 
 p {
-  font-size: 14px;
+  font-size: 18px;
   line-height: 25px;
   color: #777;
 }
@@ -995,10 +995,6 @@ introduction
   padding-bottom: 30px;
 }
 
-#introduction .container p{
-  font-size: 18px;
-}
-
 #introduction .column {
   display: flex;
   flex-direction: column;
@@ -1300,6 +1296,11 @@ contact
   background-image: url(../images/dotted-map-bg.png);
   background-position: center center;
   background-repeat: no-repeat;
+}
+
+#contact-us .contact-info{
+  /* font-family: 'Courier New', Courier, monospace; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #contact {
