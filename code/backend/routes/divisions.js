@@ -17,7 +17,7 @@ router.post("/initialize", async (req, res) => {
 
     fs.writeFileSync(public_key_path, public_key, "utf8");
 
-    await Division.findOneAndUpdate(
+    const result = await Division.findOneAndUpdate(
       { name: divisionName },
       { publicKeyPath: public_key_path },
       (err, doc) => {
@@ -27,6 +27,13 @@ router.post("/initialize", async (req, res) => {
         console.log(doc);
 
         if (doc === null) {
+          fs.unlink(public_key_path, (err) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+            console.log(`${public_key_path} was deleted`);
+          });
           return res.status(400).json({
             message: `Cannot find division named ${divisionName}. Please register the division`,
           });

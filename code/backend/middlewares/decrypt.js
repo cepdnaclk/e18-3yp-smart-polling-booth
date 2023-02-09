@@ -4,8 +4,6 @@ const fs = require("fs");
 const privatePath = "./middlewares/keys/serverKeys/private.pem";
 
 const decrypt = (cipher_message) => {
-  console.log("called");
-
   const privateKey = fs.readFileSync(privatePath, "utf8");
   console.log(privateKey);
 

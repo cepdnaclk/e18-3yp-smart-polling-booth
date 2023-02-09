@@ -16,7 +16,7 @@ const encrypt = require("./middlewares/encrrypt");
 const decrypt = require("./middlewares/decrypt");
 const generateRsaPair = require("./middlewares/generator");
 
-generateRsaPair();
+// generateRsaPair();
 
 mongoose
   .connect("mongodb://127.0.0.1/smartPollingBooth")

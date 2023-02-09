@@ -164,7 +164,7 @@ Welcome to the Smart Poll</string>
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-503</y>
+             <y>0</y>
              <width>651</width>
              <height>684</height>
             </rect>
@@ -799,6 +799,39 @@ QPushButton:pressed{
           </property>
           <property name="text">
            <string>Exit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="confirm">
+          <property name="maximumSize">
+           <size>
+            <width>290</width>
+            <height>80</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	border-radius:5px;
+	background-color: qlineargradient(spread:repeat, x1:0, y1:1, x2:0.932, y2:0, stop:0 rgba(51, 99, 131, 255), stop:0.272727 rgba(51, 99, 131, 255), stop:0.818182 rgba(33, 150, 173, 255));
+}
+
+QPushButton:pressed{
+	background-color:rgb(45,45,45);
+	border:2px solid rgb(20, 244, 255);
+	color:rgb(30,211,231)
+}</string>
+          </property>
+          <property name="text">
+           <string>Confirm</string>
           </property>
          </widget>
         </item>

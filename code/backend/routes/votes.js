@@ -1,7 +1,10 @@
-const { Votes } = require("../models/votes");
-const { Division } = require("../models/division");
 const express = require("express");
 const router = express.Router();
+const fs = require("fs");
+const { Votes } = require("../models/votes");
+const { Division } = require("../models/division");
+const decrypt = require("../middlewares/decrypt");
+const verify = require("../middlewares/verify");
 
 // Get all votes
 router.get("/", async (req, res) => {
@@ -40,29 +43,73 @@ router.post("/add", async (req, res) => {
 
 // add a votes (done)
 router.post("/addwithEncrypt", async (req, res) => {
-  const decrypt_msg = decrypt(req.body);
-  console.log(decrypt_msg);
+  try {
+    let response_msg = "";
 
-  return decrypt_msg;
-  // const division = await Division.findById(req.body.divisionID);
-  // console.log(division);
+    const signed_and_encrypted_data = req.body;
 
-  // if (!division) {
-  //   return res.status(404).json({ message: "Invalid division" });
-  // }
+    // Get the size of the signature
+    const signature_size = signed_and_encrypted_data.readInt32BE(0);
+    // Get the size of the encrypted message
+    const encrypted_message_size = signed_and_encrypted_data.readInt32BE(4);
 
-  // const votes = new Votes({
-  //   party: req.body.party,
-  //   divisionID: req.body.divisionID,
-  // });
+    // // Get the signature
+    const signature = signed_and_encrypted_data.slice(8, 8 + signature_size);
+    // // Get the encrypted message
+    const encrypted_message = signed_and_encrypted_data.slice(
+      8 + signature_size
+    );
 
-  // try {
-  //   const newVote = await votes.save();
-  //   return res.status(201).json({ message: "successfully recorded your vote" });
-  // } catch (ex) {
-  //   // for (field in ex.errors) console.log(ex.errors[field].message);
-  //   return res.status(404).send("You Cannot vote");
-  // }
+    // console.log(signature_size);
+    // console.log(encrypted_message_size);
+
+    const decrypt_msg = decrypt(encrypted_message);
+    console.log(decrypt_msg);
+
+    const public_key_path = `./middlewares/keys/divisionPublicKeys/${req.headers.division}_public_key.pem`;
+    console.log(public_key_path);
+
+    // const clientPublicKey = fs.readFileSync(public_key_path, "utf-8");
+    // console.log(clientPublicKey);
+
+    // // Verify the signature
+    // const verified = crypto
+    //   .createVerify("SHA256")
+    //   .update(decrypt_msg)
+    //   .verify(public_key, signature);
+
+    // if (verified) {
+    //   res.status(200).send("The signature is valid.");
+    // } else {
+    //   res.status(401).send("The signature is not valid.");
+    // }
+
+    // const decrypt_msg = JSON.parse(decrypt(req.body));
+    // console.log(decrypt_msg);
+
+    // const division = await Division.findById(decrypt_msg.divisionID);
+    // console.log(division);
+    // if (!division) response_msg = "cannot find divison with given ID";
+
+    return res.status(200).json({ message: "successfully record your vote" });
+
+    // if (!division) {
+    //   return res.status(404).json({ message: "Invalid division" });
+    // }
+
+    // const votes = new Votes({
+    //   party: req.body.party,
+    //   divisionID: req.body.divisionID,
+    // });
+
+    // try {
+    //   const newVote = await votes.save();
+    //   return res.status(201).json({ message: "successfully recorded your vote" });
+    // } catch (ex) {
+    //   // for (field in ex.errors) console.log(ex.errors[field].message);
+    //   return res.status(404).send("You Cannot vote");
+    // }
+  } catch {}
 });
 
 // vote by the voter
