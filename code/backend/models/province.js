@@ -5,7 +5,15 @@ const provinceSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    enum: ["Uva", "Central", "Western", "Southern"],
+    enum: ["Northern"
+          ,"North Western"
+          ,"Western	Colombo"
+          ,"North Central"
+          ,"Central"
+          ,"Sabaragamuwa"
+          ,"Eastern"
+          ,"Uva"
+          ,"Southern"],
   },
   regVoteCount: {
     type: Number,

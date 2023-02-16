@@ -9,7 +9,31 @@ const districtSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    enum: ["Badulla", "Colombo", "Kandy", "Mathara"],
+    enum: ["Jaffna"
+            ,"Kilinochchi"
+            ,"Mannar"
+            ,"Mullaitivu"
+            ,"Vavuniya"
+            ,"Puttalam"
+            ,"Kurunegala"
+            ,"Gampaha"
+            ,"Colombo"
+            ,"Kalutara"
+            ,"Anuradhapura"
+            ,"Polonnaruwa"
+            ,"Matale"
+            ,"Kandy"
+            ,"Nuwara Eliya"
+            ,"Kegalle"
+            ,"Ratnapura"
+            ,"Trincomalee"
+            ,"Batticaloa"
+            ,"Ampara"
+            ,"Badulla"
+            ,"Monaragala"
+            ,"Hambantota"
+            ,"Matara"
+            ,"Galle"],
   },
   regVoteCount: {
     type: Number,
